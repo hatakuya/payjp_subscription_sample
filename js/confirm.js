@@ -11,16 +11,9 @@ $(document).ready(function(){
  * 画面上の情報を収集
  */
 function moveThanksPage(){
-/*
-    var name = $('input[name="name"]').val();
-    var mail = $('input[name="mail"]').val();
-    var number = $('input[name="number"]').val();
-    var card_name = $('input[name="card_name"]').val();
-    var expiry = $('input[name="expiry"]').val();
-    var cvc = $('input[name="cvc"]').val();
+    var mail = $('#mail').val();
+    var tokenId = $('#tokenid').val();
+    var data = {'mail':mail, 'tokenid':tokenId};
 
-    var data = {'name':name, 'mail':mail, 'number':number, 'card_name':card_name, 'expiry':expiry, 'cvc':cvc};
-
-    postForm( './confirm.php', data );
-*/
+    postForm( './thanks.php', data );
 }
