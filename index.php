@@ -1,3 +1,11 @@
+<?php
+require_once 'lib/init.php';
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,7 +21,6 @@
     <br>
     <div class="container">
         <h2>基本情報</h2>
-
         <div class="form-group">
             <label>氏名</label>
             <input name="name" type="text" class="form-control" value="大塚 拓也">
@@ -22,6 +29,7 @@
             <label>メールアドレス</label>
             <input name="mail" type="email" class="form-control" value="test@example.com">
         </div>
+
     </div>
     <br>
     <div class="container">

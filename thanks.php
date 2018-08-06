@@ -1,5 +1,5 @@
 <?php 
-require_once 'init.php';
+require_once 'lib/init.php';
 
 //◆支払い以外のアクセスは弾く
 if (!isset($_POST['tokenid'])) {
