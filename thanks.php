@@ -2,15 +2,15 @@
 require_once 'init.php';
  
 //◆支払い以外のアクセスは弾く
-if (!isset($_POST['payjp-token'])) {
+if (!isset($_POST['tokenid'])) {
     echo "トークンがセットされていない";
     exit;
 }
  
 //失敗時のメッセージ
-$err            = '';
+$err = '';
 //送られてきた、顧客のカード情報を使って作成されたトークン
-$token          = $_POST['payjp-token'];
+$token = $_POST['tokenid'];
 //支払い価格
 $amount = 500;
 //秘密鍵
@@ -35,5 +35,5 @@ try {
     echo $err;
     exit;
 }
- 
+
 echo "支払いが完了しました。";

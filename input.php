@@ -34,19 +34,22 @@
                 <form action="">
                     <input placeholder="カード番号" type="text" name="number">
                     <input placeholder="氏名" type="text" name="card_name">
-                    <input placeholder="有効期限" type="text" name="expiry">
+                    <input placeholder="有効期限(月)" type="text" name="exp_month">
+                    <input placeholder="有効期限(年)" type="text" name="exp_year">
                     <input placeholder="CVC番号" type="text" name="cvc">
                 </form>
             </div>
         </div>
         <button id="move_confirm_button" type="button" class="btn btn-primary">確認画面へ</button>
+        <input id="tokenid" type="hidden" value=""> 
     </div>
     <!-- Optional JavaScript -->
-    <script src="js/jquery/min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/card/dist/jquery.card.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/input.js"></script>
+    <script type="text/javascript" src="js/jquery/min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/card/dist/jquery.card.js"></script>
+    <script type="text/javascript" src="https://js.pay.jp/"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/input.js"></script>
 </body>
 </html>
