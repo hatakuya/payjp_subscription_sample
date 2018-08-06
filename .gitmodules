@@ -1,3 +1,6 @@
 [submodule "vagrant"]
 	path = vagrant
 	url = https://github.com/t-o-z/vagrant-centos.git
+[submodule "js/card"]
+	path = js/card
+	url = https://github.com/jessepollak/card.git

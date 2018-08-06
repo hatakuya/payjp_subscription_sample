@@ -1,41 +1,41 @@
 <?php
 
 // Payjp singleton
-require(dirname(__FILE__) . '/lib/Payjp.php');
+require(dirname(__FILE__) . '/lib/payjp/Payjp.php');
 
 // Utilities
-require(dirname(__FILE__) . '/lib/Util/RequestOptions.php');
-require(dirname(__FILE__) . '/lib/Util/Set.php');
-require(dirname(__FILE__) . '/lib/Util/Util.php');
+require(dirname(__FILE__) . '/lib/payjp/Util/RequestOptions.php');
+require(dirname(__FILE__) . '/lib/payjp/Util/Set.php');
+require(dirname(__FILE__) . '/lib/payjp/Util/Util.php');
 
 // HttpClient
-require(dirname(__FILE__) . '/lib/HttpClient/ClientInterface.php');
-require(dirname(__FILE__) . '/lib/HttpClient/CurlClient.php');
+require(dirname(__FILE__) . '/lib/payjp/HttpClient/ClientInterface.php');
+require(dirname(__FILE__) . '/lib/payjp/HttpClient/CurlClient.php');
 
 // Errors
-require(dirname(__FILE__) . '/lib/Error/Base.php');
-require(dirname(__FILE__) . '/lib/Error/Api.php');
-require(dirname(__FILE__) . '/lib/Error/ApiConnection.php');
-require(dirname(__FILE__) . '/lib/Error/Authentication.php');
-require(dirname(__FILE__) . '/lib/Error/Card.php');
-require(dirname(__FILE__) . '/lib/Error/InvalidRequest.php');
-require(dirname(__FILE__) . '/lib/Error/RateLimit.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/Base.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/Api.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/ApiConnection.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/Authentication.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/Card.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/InvalidRequest.php');
+require(dirname(__FILE__) . '/lib/payjp/Error/RateLimit.php');
 
 // Plumbing
-require(dirname(__FILE__) . '/lib/PayjpObject.php');
-require(dirname(__FILE__) . '/lib/ApiRequestor.php');
-require(dirname(__FILE__) . '/lib/ApiResource.php');
-require(dirname(__FILE__) . '/lib/AttachedObject.php');
-require(dirname(__FILE__) . '/lib/ExternalAccount.php');
+require(dirname(__FILE__) . '/lib/payjp/PayjpObject.php');
+require(dirname(__FILE__) . '/lib/payjp/ApiRequestor.php');
+require(dirname(__FILE__) . '/lib/payjp/ApiResource.php');
+require(dirname(__FILE__) . '/lib/payjp/AttachedObject.php');
+require(dirname(__FILE__) . '/lib/payjp/ExternalAccount.php');
 
 // Payjp API Resources
-require(dirname(__FILE__) . '/lib/Account.php');
-require(dirname(__FILE__) . '/lib/Card.php');
-require(dirname(__FILE__) . '/lib/Charge.php');
-require(dirname(__FILE__) . '/lib/Collection.php');
-require(dirname(__FILE__) . '/lib/Customer.php');
-require(dirname(__FILE__) . '/lib/Event.php');
-require(dirname(__FILE__) . '/lib/Plan.php');
-require(dirname(__FILE__) . '/lib/Subscription.php');
-require(dirname(__FILE__) . '/lib/Token.php');
-require(dirname(__FILE__) . '/lib/Transfer.php');
+require(dirname(__FILE__) . '/lib/payjp/Account.php');
+require(dirname(__FILE__) . '/lib/payjp/Card.php');
+require(dirname(__FILE__) . '/lib/payjp/Charge.php');
+require(dirname(__FILE__) . '/lib/payjp/Collection.php');
+require(dirname(__FILE__) . '/lib/payjp/Customer.php');
+require(dirname(__FILE__) . '/lib/payjp/Event.php');
+require(dirname(__FILE__) . '/lib/payjp/Plan.php');
+require(dirname(__FILE__) . '/lib/payjp/Subscription.php');
+require(dirname(__FILE__) . '/lib/payjp/Token.php');
+require(dirname(__FILE__) . '/lib/payjp/Transfer.php');
