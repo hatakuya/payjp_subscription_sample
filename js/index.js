@@ -13,7 +13,9 @@ $(document).ready(function(){
  * 事前にページ上に保持しているユーザー情報を取得する
  */
 function moveInputPage(){
-    var data = {'name':'大塚', 'mail':'otsuka@example.com'};
+    var name = $('input[name="name"]').val();
+    var mail = $('input[name="mail"]').val();
+    var data = {'name':name, 'mail':mail};
     postForm( './input.php', data );
 }
 
@@ -31,16 +33,3 @@ function restartService(){
     alert('継続課金再開の処理を行います');
 }
 
-/**
- * POSTにて画面遷移するための汎用関数
- * @param {*} url 
- * @param {*} data 
- */
-function postForm(url, data) {
-    var $form = $('<form/>', {'action': url, 'method': 'post'});
-    for(var key in data) {
-            $form.append($('<input/>', {'type': 'hidden', 'name': key, 'value': data[key]}));
-    }
-    $form.appendTo(document.body);
-    $form.submit();
-};

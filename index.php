@@ -13,8 +13,15 @@
     <br>
     <div class="container">
         <h2>基本情報</h2>
-        <p>氏名：大塚</p>
-        <p>メールアドレス：test@example.com</p>
+
+        <div class="form-group">
+            <label>氏名</label>
+            <input name="name" type="text" class="form-control" value="大塚 拓也">
+        </div>
+        <div class="form-group">
+            <label>メールアドレス</label>
+            <input name="mail" type="email" class="form-control" value="test@example.com">
+        </div>
     </div>
     <br>
     <div class="container">
@@ -37,6 +44,7 @@
     <script src="js/jquery/min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>
