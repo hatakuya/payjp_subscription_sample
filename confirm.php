@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
 </head>
 <body>
-    <?php var_dump($_POST);?>
     <div class="container">
         <h1>入力内容確認画面</h1>
     </div>
