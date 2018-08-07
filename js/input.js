@@ -1,15 +1,11 @@
 /**
  * 画面起動時処理
  */
-$(document).ready(function(){
-    // カード表示
-    $('form').card({
-        container: '.card-wrapper', 
-    });
-    
+$(document).ready(function(){    
     // payjp.jsの初期化
     Payjp.setPublicKey('pk_test_5e388cdf3be397973de9c4c2');
     document.querySelector('#move_confirm_button').addEventListener('click',moveConfirmPage);
+    $('input.cc-num').payment('formatCardNumber');
 });
 
 /**

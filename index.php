@@ -44,7 +44,7 @@
     </div>
     <br>
     <div class="container">
-        <u><h2>ユーザー操作</h2></u>
+        <u><h2>各種操作</h2></u>
         <div class="form-group">
             <h3>プランお申込</h3>
             <div id="cards" class="form-group"></div>
