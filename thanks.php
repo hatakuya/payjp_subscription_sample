@@ -1,6 +1,7 @@
 <?php 
 require_once 'lib/init.php';
 
+
 //◆支払い以外のアクセスは弾く
 if (!isset($_POST['tokenid'])) {
     echo "トークンがセットされていない";
@@ -40,7 +41,6 @@ try {
         "customer" => $customerId,
         "plan" => "test-plan"
     ));
-    var_dump($result);
     if (isset($result['error'])) {
         throw new Exception();
     }
