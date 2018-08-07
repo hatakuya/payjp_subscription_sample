@@ -1,4 +1,3 @@
-<?php var_dump($_POST);?>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -35,7 +34,7 @@
         </div>
         <div class="form-group">
             <label>クレジットカード名義：</label>
-            <label><?php echo $_POST['card_name']; ?></label>
+            <label><?php echo $_POST['cardname']; ?></label>
         </div>
         <div class="form-group">
             <label>有効期限：</label>
@@ -47,7 +46,7 @@
         <input id="name" type="hidden" value="<?php echo $_POST['name']; ?>">
         <input id="mail" type="hidden" value="<?php echo $_POST['mail']; ?>">
         <input id="number" type="hidden" value="<?php echo $_POST['number']; ?>">
-        <input id="card_name" type="hidden" value="<?php echo $_POST['card_name']; ?>">
+        <input id="cardname" type="hidden" value="<?php echo $_POST['cardname']; ?>">
         <input id="exp_month" type="hidden" value="<?php echo $_POST['exp_month']; ?>">
         <input id="exp_year" type="hidden" value="<?php echo $_POST['exp_year']; ?>">        
         <input id="cvc" type="hidden" value="<?php echo $_POST['cvc']; ?>">

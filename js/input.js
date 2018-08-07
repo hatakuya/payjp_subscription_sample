@@ -23,7 +23,7 @@ function moveConfirmPage(){
         planName = $('#planname').html(),
         planId = $('#planid').html();
     var number = document.querySelector('input[name="number"]'),
-        card_name = document.querySelector('input[name="card_name"]'),
+        cardname = document.querySelector('input[name="cardname"]'),
         cvc = document.querySelector('input[name="cvc"]'),
         exp_month = document.querySelector('input[name="exp_month"]'),
         exp_year = document.querySelector('input[name="exp_year"]');
@@ -43,7 +43,7 @@ function moveConfirmPage(){
                 'name':name, 
                 'mail':mail,
                 'number':number.value.replace(/\s/g, ""),
-                'card_name':card_name.value,
+                'cardname':cardname.value,
                 'exp_month':exp_month.value,
                 'exp_year':exp_year.value,
                 'cvc':cvc.value,
