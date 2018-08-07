@@ -33,10 +33,13 @@ function searchCustomer(){
 
             if(response == ''){
                 $('#customerId').html('未登録');
+                $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
+                $('#subscriptions').append('<label>契約情報はまだありません</label><br>');
+
             }else{
                 var parsed = $.parseJSON(response);
                 $('#customerId').html(parsed.id);
-                $('#cards').append('<label class="btn"><input name="card" type="radio" value="new">新しいカードで申し込む</label><br>');
+                $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
                 $.each(parsed.card, function(index, element){
                     $('#cards').append(
                         '<label class="btn"><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - ' + element.last4 + '</label><br>'
