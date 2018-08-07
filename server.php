@@ -67,7 +67,6 @@ class PayJPConnector {
                     $obj['subscription'][$i]['plan']['id'] = $subscript['plan']['id'];
                     $obj['subscription'][$i]['plan']['name'] = $subscript['plan']['name'];
                 }
-                
                 return json_encode($obj);
             }
         }
@@ -109,7 +108,7 @@ class PayJPConnector {
      * 定期課金停止処理
      */
     function pauseSubscription($subscriptionId){
-        $su = Payjp\Subscription::retrieve("sub_567a1e44562932ec1a7682d746e0");
+        $su = Payjp\Subscription::retrieve($subscriptionId);
         $su->pause();
         return "success";
     }
@@ -136,7 +135,7 @@ class PayJPConnector {
      * 定期課金削除処理
      */
     function deleteSubscription($subscriptionId){
-        $su = Payjp\Subscription::retrieve(subscriptionId);
+        $su = Payjp\Subscription::retrieve($subscriptionId);
         $su->delete();
         return "success";
     }
@@ -162,6 +161,18 @@ try{
             break;
         case 'create_subscription':
             echo $connection->createSubscription($_POST['customerid'], $_POST['planid']);
+            break;
+        case 'pause_subscription':
+            echo $connection->pauseSubscription($_POST['subscriptionid']);
+            break;
+        case 'resume_subscription':
+            echo $connection->resumeSubscription($_POST['subscriptionid']);
+            break;
+        case 'cancel_subscription':
+            echo $connection->cancelSubscription($_POST['subscriptionid']);
+            break;
+        case 'delete_subscription':
+            echo $connection->deleteSubscription($_POST['subscriptionid']);
             break;
         default:
             echo "command not found.";

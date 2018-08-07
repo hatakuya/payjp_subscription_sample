@@ -4,9 +4,12 @@
  */
 $(document).ready(function(){
     document.querySelector('#move_input_button').addEventListener('click',moveInputPage);
-    document.querySelector('#stop_button').addEventListener('click',stopService);
-    document.querySelector('#restart_button').addEventListener('click',restartService);
     document.querySelector('#search_customer_button').addEventListener('click',searchCustomer);
+    document.querySelector('#pause_button').addEventListener('click',pauseService);
+    document.querySelector('#resume_button').addEventListener('click',resumeService);
+    document.querySelector('#cancel_button').addEventListener('click',cancelService);
+    document.querySelector('#delete_button').addEventListener('click',deleteService);
+
     searchCustomer();
     getPlanList();
 });
@@ -80,7 +83,8 @@ function searchCustomer(){
                 });
                 $.each(parsed.subscription, function(index, element){
                     $('#subscriptions').append('<label>・' + element.plan.name + '</label><br>');
-                });    
+                    $('#cards').append('<input type="hidden" id="' +element.plan.id+ '" value="' + element.id + '">');
+                });
             }
         }
     );
@@ -109,16 +113,93 @@ function getPlanList(){
 }
 
 /**
- * 継続課金停止処理
+ * 定期課金停止処理
  */
-function stopService(){
-    alert('継続課金停止の処理を行います');
+function pauseService(){
+    var planId = $('[name="plan"] option:selected').val();
+    var subscriptionId = $('#' + planId).val();
+    if(subscriptionId != undefined){
+        $.post(
+            "server.php?command=pause_subscription",
+            { 'subscriptionid': subscriptionId},
+            function(response){
+                if(response == "success"){
+                    alert('完了しました。');
+                }else{
+                    alert('エラーが発生しました。再度実行してください。');
+                }
+            }
+        );    
+    }else{
+        alert('選択中のプランは未契約です。');
+    }
 }
 
 /**
- * 継続課金再開処理
+ * 定期課金再開処理
  */
-function restartService(){
-    alert('継続課金再開の処理を行います');
+function resumeService(){
+    var planId = $('[name="plan"] option:selected').val();
+    var subscriptionId = $('#' + planId).val();
+    if(subscriptionId != undefined){
+        $.post(
+            "server.php?command=resume_subscription",
+            { 'subscriptionid': subscriptionId},
+            function(response){
+                if(response == "success"){
+                    alert('完了しました。');
+                }else{
+                    alert('エラーが発生しました。すでに適用されている可能性があります。確認の後再度実行してください。');
+                }
+            }
+        );
+    }else{
+        alert('選択中のプランは未契約です。');
+    }
 }
 
+/**
+ * 定期課金キャンセル処理
+ */
+function cancelService(){
+    var planId = $('[name="plan"] option:selected').val();
+    var subscriptionId = $('#' + planId).val();
+    if(subscriptionId != undefined){
+        $.post(
+            "server.php?command=cancel_subscription",
+            { 'subscriptionid': subscriptionId},
+            function(response){
+                if(response == "success"){
+                    alert('完了しました。');
+                }else{
+                    alert('エラーが発生しました。再度実行してください。');
+                }
+            }
+        );
+    }else{
+        alert('選択中のプランは未契約です。');
+    }
+}
+
+/**
+ * 定期課金削除処理
+ */
+function deleteService(){
+    var planId = $('[name="plan"] option:selected').val();
+    var subscriptionId = $('#' + planId).val();
+    if(subscriptionId != undefined){
+        $.post(
+            "server.php?command=delete_subscription",
+            { 'subscriptionid': subscriptionId},
+            function(response){
+                if(response == "success"){
+                    alert('完了しました。');
+                }else{
+                    alert('エラーが発生しました。再度実行してください。');
+                }
+            }
+        );
+    }else{
+        alert('選択中のプランは未契約です。');
+    }
+}

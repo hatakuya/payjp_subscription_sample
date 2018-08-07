@@ -56,14 +56,14 @@
             引き落としの失敗やカードが不正である、また定期課金を停止したい場合はこのリクエストで定期購入を停止させます。
             定期課金を停止させると、再開されるまで引き落とし処理は一切行われません。
             </span><br>
-            <button id="stop_button" type="button" class="btn btn-primary">停止</button>
+            <button id="pause_button" type="button" class="btn btn-primary">停止</button>
         </div>
         <div class="form-group">
             <h3>ご利用再開</h3>
             <span class="text-muted">
             停止もしくはキャンセル状態の定期課金を再開させます。
             </span><br>
-            <button id="restart_button" type="button" class="btn btn-primary">再開</button>
+            <button id="resume_button" type="button" class="btn btn-primary">再開</button>
         </div>
         <div class="form-group">
             <h3>ご契約キャンセル</h3>
@@ -72,14 +72,14 @@
             終了日以前であれば、定期課金の再開リクエスト(/resume)を行うことで、 
             キャンセルを取り消すことができます。終了日をむかえた定期課金は、自動的に削除されますのでご注意ください。
             </span><br>
-            <button id="restart_button" type="button" class="btn btn-primary">キャンセル</button>
+            <button id="cancel_button" type="button" class="btn btn-primary">キャンセル</button>
         </div>
         <div class="form-group">
             <h3>ご契約削除</h3>
             <span class="text-muted">
             定期課金をすぐに削除します。次回以降の課金は行われずに、一度削除した定期課金は、再び戻すことができません。
             </span><br>
-            <button id="stop_button" type="button" class="btn btn-primary">削除</button>
+            <button id="delete_button" type="button" class="btn btn-primary">削除</button>
         </div>
     </div>
 
