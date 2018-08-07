@@ -161,8 +161,10 @@ switch($command){
         echo $connection->getCustomer($_POST['mail']);
         break;
     case 'create_customer':
+        echo $connection->createCustomer($_POST['mail'],$_POST['tokenid']);
         break;
     case 'create_subscription':
+        echo $connection->createSubscription($_POST['customerid'],$_POST['planid']);
         break;
     default:
         break;

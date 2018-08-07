@@ -12,9 +12,18 @@ $(document).ready(function(){
  * 画面上の情報を収集
  */
 function moveThanksPage(){
+
+    // 顧客IDがセットされていない場合（ユーザー登録必須）
+    if($('#customerid').val() == ""){
+
+    }else{
+        // 登録済みカードで決済
+
+    }
     var mail = $('#mail').val();
     var tokenId = $('#tokenid').val();
     var data = {'mail':mail, 'tokenid':tokenId};
 
-    postForm( './thanks.php', data );
+    // 正常終了なら完了ページへ
+    postForm( './complete.php', data );
 }
