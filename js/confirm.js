@@ -4,6 +4,7 @@
 $(document).ready(function(){
     // 決済実行および完了ページへの遷移
     document.querySelector('#move_thanks_button').addEventListener('click',moveThanksPage);
+
 });
 
 /**

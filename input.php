@@ -14,17 +14,18 @@
     <div class="container">
         <h3>ご注文情報</h3>
         <div class="form-group">
-            <label>ID : </label><label> <?php echo $_POST['customerid']; ?></label>
+            <label>ID : </label><label id="customerid"><?php echo $_POST['customerid']; ?></label>
         </div>
         <div class="form-group">
-            <label>氏名 : </label><label> <?php echo $_POST['name']; ?></label>
+            <label>氏名 : </label><label id="name"><?php echo $_POST['name']; ?></label>
         </div>
         <div class="form-group">
-            <label>メールアドレス : </label> <label><?php echo $_POST['mail']; ?></label>
+            <label>メールアドレス : </label><label id="mail"><?php echo $_POST['mail']; ?></label>
         </div>
         <div class="form-group">
-            <label>プラン : </label><label> <?php echo $_POST['planname']; ?></label>
+            <label>プラン : </label><label id="planname"><?php echo $_POST['planname']; ?></label>
         </div>
+        <input id="planid" type="hidden" value="<?php echo $_POST['planid'];?>">
     </div>
     <div class="container">
         <h2>カード情報入力</h2>

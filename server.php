@@ -77,7 +77,11 @@ class PayJPConnector {
 
                     foreach($cards['data'] as $i => $card){
                         $obj['card'][$i]['id'] = $card['id'];
+                        $obj['card'][$i]['name'] = $card['name'];                        
                         $obj['card'][$i]['last4'] = $card['last4'];
+                        $obj['card'][$i]['brand'] = $card['brand'];
+                        $obj['card'][$i]['exp_month'] = $card['exp_month'];
+                        $obj['card'][$i]['exp_year'] = $card['exp_year'];                        
                     }
                     
                     foreach($subscripts['data'] as $i => $subscript){

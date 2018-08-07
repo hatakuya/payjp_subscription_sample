@@ -21,11 +21,31 @@ function moveInputPage(){
     var planId = $('[name="plan"] option:selected').val();
     var planName = $('[name="plan"] option:selected').text();
     var customerId = $('#customerId').html();
-    var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
 
     if($('input[name="card"]:checked').val() == "new"){
+        var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
         postForm( './input.php', data );
     }else{
+        var cardId = $('input[name="card"]:checked').val();
+        var cardName = $('#name_' + cardId).val();
+        var last4 = $('#last4_' + cardId).val();
+        var brand = $('#brand_' + cardId).val();
+        var exp_month = $('#exp_month_' + cardId).val();
+        var exp_year = $('#exp_year_' + cardId).val();
+        var data = {
+            'name':name,
+            'mail':mail,
+            'planid':planId,
+            'planname':planName,
+            'customerid':customerId,
+            'cardid':cardId,
+            'cardname':cardName,
+            'last4':last4,
+            'brand':brand,
+            'exp_month':exp_month,
+            'exp_year':exp_year,
+        };
+
         postForm( './confirm.php', data );
     }
 }
@@ -53,9 +73,12 @@ function searchCustomer(){
                 $('#customerId').html(parsed.id);
                 $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
                 $.each(parsed.card, function(index, element){
-                    $('#cards').append(
-                        '<label class="btn"><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - ' + element.last4 + '</label><br>'
-                    );
+                    $('#cards').append('<label class="btn"><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
+                    $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
+                    $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
+                    $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');
+                    $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
+                    $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '">');
                 });
                 $.each(parsed.subscription, function(index, element){
                     $('#subscriptions').append('<label>・' + element.plan.name + '</label><br>');

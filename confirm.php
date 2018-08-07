@@ -1,3 +1,4 @@
+<?php var_dump($_POST);?>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +14,10 @@
     <br>
     <div class="container">
         <div class="form-group">
+            <label>ID：</label>
+            <label><?php echo $_POST['customerid']; ?></label>
+        </div>
+        <div class="form-group">
             <label>氏名：</label>
             <label><?php echo $_POST['name']; ?></label>
         </div>
@@ -21,20 +26,20 @@
             <label><?php echo $_POST['mail']; ?></label>
         </div>
         <div class="form-group">
-            <label>クレジットカード番号：</label>
-            <label><?php echo $_POST['number']; ?></label>
+            <label>選択プラン：</label>
+            <label><?php echo $_POST['planname']; ?></label>
         </div>
         <div class="form-group">
-            <label>クレジットカード記載の氏名：</label>
+            <label>クレジットカード番号：</label>
+            <label>XXXX - XXXX - XXXX - <?php echo $_POST['last4']; ?></label>
+        </div>
+        <div class="form-group">
+            <label>クレジットカード名義：</label>
             <label><?php echo $_POST['card_name']; ?></label>
         </div>
         <div class="form-group">
             <label>有効期限：</label>
             <label><?php echo $_POST['exp_month']; ?> / <?php echo $_POST['exp_year']; ?></label>
-        </div>
-        <div class="form-group">
-            <label>CVC：</label>
-            <label><?php echo $_POST['cvc']; ?></label>
         </div>
     </div>
     <br>

@@ -17,8 +17,11 @@ $(document).ready(function(){
  * 画面上の情報を収集
  */
 function moveConfirmPage(){
-    var name = $('input[name="name"]').val(),
-        mail = $('input[name="mail"]').val();
+    var name = $('#name').html(),
+        mail = $('#mail').html(),
+        customerId = $('#customerid').html(),
+        planName = $('#planname').html(),
+        planId = $('#planid').html();
     var number = document.querySelector('input[name="number"]'),
         card_name = document.querySelector('input[name="card_name"]'),
         cvc = document.querySelector('input[name="cvc"]'),
@@ -32,11 +35,23 @@ function moveConfirmPage(){
     };
     Payjp.createToken(card, function(s, response) {
         if (response.error) {
-            alert(response.error.message);
+            alert("エラーが発生しました。入力されたカードは使用できません。入力内容を再確認してください。エラー詳細（" + response.error.message + "）");
         }
         else {
             var tokenId = response.id;
-            var data = {'name':name, 'mail':mail, 'number':number.value.replace(/\s/g, ""), 'card_name':card_name.value, 'exp_month':exp_month.value,'exp_year':exp_year.value, 'cvc':cvc.value, 'tokenid':tokenId};
+            var data = {
+                'name':name, 
+                'mail':mail,
+                'number':number.value.replace(/\s/g, ""),
+                'card_name':card_name.value,
+                'exp_month':exp_month.value,
+                'exp_year':exp_year.value,
+                'cvc':cvc.value,
+                'tokenid':tokenId,
+                'customerid':customerId,
+                'planname':planName,
+                'planid':planId
+            };
             postForm( './confirm.php', data );    
         }
     });
