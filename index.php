@@ -12,7 +12,7 @@
     </div>
     <br>
     <div class="container">
-        <h2>ユーザー情報</h2>
+        <u><h2 class=”page-header”>ユーザー情報</h2></u>
         <div class="form-group">
             <label>顧客ID：</label>
             <label id="customerId" ></label>  
@@ -36,7 +36,7 @@
     </div>
     <br>
     <div class="container">
-        <h2>プラン選択</h2>
+        <u><h2 class=”page-header”>プラン選択</h2></u>
         <div class="form-group">
             <select id="planSelect" name="plan">
             </select>
@@ -44,7 +44,7 @@
     </div>
     <br>
     <div class="container">
-        <h2>ユーザー操作</h2>
+        <u><h2>ユーザー操作</h2></u>
         <div class="form-group">
             <h3>プランお申込</h3>
             <div id="cards" class="form-group"></div>
@@ -52,15 +52,34 @@
         </div>
         <div class="form-group">
             <h3>ご利用停止</h3>
+            <span class="text-muted">
+            引き落としの失敗やカードが不正である、また定期課金を停止したい場合はこのリクエストで定期購入を停止させます。
+            定期課金を停止させると、再開されるまで引き落とし処理は一切行われません。
+            </span><br>
             <button id="stop_button" type="button" class="btn btn-primary">停止</button>
         </div>
         <div class="form-group">
             <h3>ご利用再開</h3>
+            <span class="text-muted">
+            停止もしくはキャンセル状態の定期課金を再開させます。
+            </span><br>
             <button id="restart_button" type="button" class="btn btn-primary">再開</button>
         </div>
         <div class="form-group">
-            <h3>ご契約解除</h3>
-            <button id="restart_button" type="button" class="btn btn-primary">再開</button>
+            <h3>ご契約キャンセル</h3>
+            <span class="text-muted">
+            定期課金をキャンセルし、現在の周期の終了日をもって定期課金を終了させます。
+            終了日以前であれば、定期課金の再開リクエスト(/resume)を行うことで、 
+            キャンセルを取り消すことができます。終了日をむかえた定期課金は、自動的に削除されますのでご注意ください。
+            </span><br>
+            <button id="restart_button" type="button" class="btn btn-primary">キャンセル</button>
+        </div>
+        <div class="form-group">
+            <h3>ご契約削除</h3>
+            <span class="text-muted">
+            定期課金をすぐに削除します。次回以降の課金は行われずに、一度削除した定期課金は、再び戻すことができません。
+            </span><br>
+            <button id="stop_button" type="button" class="btn btn-primary">削除</button>
         </div>
     </div>
 
