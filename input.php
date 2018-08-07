@@ -11,19 +11,21 @@
     <div class="container">
         <h1>クレジットカード情報入力画面</h1>
     </div>
-    <br>
     <div class="container">
-        <h2>基本情報</h2>
+        <h3>ご注文情報</h3>
         <div class="form-group">
-            <label>氏名</label>
-            <input name="name" type="text" class="form-control" readonly="true" value="<?php echo $_POST['name']; ?>">
+            <label>ID : </label><label> <?php echo $_POST['customerid']; ?></label>
         </div>
         <div class="form-group">
-            <label>メールアドレス</label>
-            <input name="mail" type="email" class="form-control" readonly="true" value="<?php echo $_POST['mail']; ?>">
+            <label>氏名 : </label><label> <?php echo $_POST['name']; ?></label>
+        </div>
+        <div class="form-group">
+            <label>メールアドレス : </label> <label><?php echo $_POST['mail']; ?></label>
+        </div>
+        <div class="form-group">
+            <label>プラン : </label><label> <?php echo $_POST['planname']; ?></label>
         </div>
     </div>
-    <br>
     <div class="container">
         <h2>カード情報入力</h2>
         <div class="card-container">
@@ -40,6 +42,8 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="container">
         <button id="move_confirm_button" type="button" class="btn btn-primary">確認画面へ</button>
         <input id="tokenid" type="hidden" value=""> 
     </div>

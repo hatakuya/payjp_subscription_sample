@@ -18,10 +18,22 @@ $(document).ready(function(){
 function moveInputPage(){
     var name = $('input[name="name"]').val();
     var mail = $('input[name="mail"]').val();
-    var data = {'name':name, 'mail':mail};
-    postForm( './input.php', data );
+    var planId = $('[name="plan"] option:selected').val();
+    var planName = $('[name="plan"] option:selected').text();
+    var customerId = $('#customerId').html();
+    var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
+
+    if($('input[name="card"]:checked').val() == "new"){
+        postForm( './input.php', data );
+    }else{
+        postForm( './confirm.php', data );
+    }
 }
 
+/**
+ * 入力されたメールアドレスに紐付く顧客情報を取得
+ * 顧客に紐付くカード情報および契約している定期決済情報を画面へ表示する
+ */
 function searchCustomer(){
     var mail = $('input[name="mail"]').val();
     $.post(
@@ -53,6 +65,9 @@ function searchCustomer(){
     );
 }
 
+/**
+ * 選択可能なプランの一覧を選択形式で出力する
+ */
 function getPlanList(){
     $.post(
         "server.php?command=get_plan_list",
@@ -67,8 +82,6 @@ function getPlanList(){
                         return $("<option>").val(element.id).text(planStr);
                     }
                 });
-
-                
             });
         }
     );
