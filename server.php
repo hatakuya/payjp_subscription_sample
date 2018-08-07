@@ -21,6 +21,7 @@ class PayJPConnector {
      * 登録済みプラン情報一覧の取得
      */
     function getPlanList(){
+        $result;
         try {
             $result = Payjp\Plan::all();
             if (isset($result['error'])) {
@@ -42,25 +43,10 @@ class PayJPConnector {
     }
 
     /**
-     * プラン情報取得
-     */
-    function getPlan($planId){
-        try {
-            $result = Payjp\Plan::retrieve($planId);
-            if (isset($result['error'])) {
-                throw new Exception();
-            }
-            return $result;
-        } catch (Exception $e) {
-            error_log($result['error']);
-            return $result['error']['message'];
-        }
-    }
-
-    /**
      * 顧客情報一覧取得
      */
     function getCustomer($email){
+        $result;
         try {
             $result = Payjp\Customer::all();
             if (isset($result['error'])) {
@@ -106,6 +92,7 @@ class PayJPConnector {
      * @return 顧客情報生成結果
      */
     function createCustomer($mail, $cardToken){
+        $result;
         try {
             // 顧客情報の追加
             $result = Payjp\Customer::create(array(
@@ -128,6 +115,7 @@ class PayJPConnector {
      * @return 定期課金生成結果
      */
     function createSubscription($customerId, $planId){
+        $result;
         try {
             $result = Payjp\Subscription::create(array(
                 "customer" => $customerId,
@@ -154,8 +142,6 @@ $command = $_GET['command'];
 switch($command){
     case 'get_plan_list':
         echo $connection->getPlanList();
-        break;
-    case 'get_plan':
         break;
     case 'get_customer':
         echo $connection->getCustomer($_POST['mail']);

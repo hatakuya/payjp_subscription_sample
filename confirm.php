@@ -43,6 +43,7 @@
     </div>
     <br>
     <div class="container">
+        <input id="customerid" type="hidden" value="<?php echo $_POST['customerid']; ?>">
         <input id="name" type="hidden" value="<?php echo $_POST['name']; ?>">
         <input id="mail" type="hidden" value="<?php echo $_POST['mail']; ?>">
         <input id="number" type="hidden" value="<?php echo $_POST['number']; ?>">
@@ -52,7 +53,7 @@
         <input id="cvc" type="hidden" value="<?php echo $_POST['cvc']; ?>">
         <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
         <input id="tokenid" type="hidden" value="<?php echo $_POST['tokenid']; ?>">        
-        <button id="move_thanks_button" type="button" class="btn btn-primary">注文確定</button>
+        <button id="move_complete_button" type="button" class="btn btn-primary">注文確定</button>
     </div>
 
     <!-- Optional JavaScript -->

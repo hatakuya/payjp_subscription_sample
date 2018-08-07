@@ -3,8 +3,7 @@
  */
 $(document).ready(function(){
     // 決済実行および完了ページへの遷移
-    document.querySelector('#move_thanks_button').addEventListener('click',moveThanksPage);
-
+    document.querySelector('#move_complete_button').addEventListener('click',moveThanksPage);
 });
 
 /**
@@ -12,18 +11,40 @@ $(document).ready(function(){
  * 画面上の情報を収集
  */
 function moveThanksPage(){
-
-    // 顧客IDがセットされていない場合（ユーザー登録必須）
-    if($('#customerid').val() == ""){
-
-    }else{
-        // 登録済みカードで決済
-
-    }
     var mail = $('#mail').val();
     var tokenId = $('#tokenid').val();
-    var data = {'mail':mail, 'tokenid':tokenId};
+    var planId = $('#planid').val();
+    var customerId = $('#customerid').val();
 
-    // 正常終了なら完了ページへ
-    postForm( './complete.php', data );
+    // 顧客IDがセットされていない場合（ユーザー登録）
+    if(customerId == ""){
+            $.post(
+            "server.php?command=create_customer",
+            { 'mail': mail, 'tokenid':tokenId},
+            function(response){
+                createSubscription(response.customerid, planId);
+            }
+        );
+    }else{
+        // 登録済みカードで決済
+        createSubscription(customerId, planId);
+    }
+    
+}
+
+/**
+ * 定期課金作成
+ * @param {*} customerId 
+ * @param {*} planId 
+ */
+function createSubscription(customerId, planId){
+    $.post(
+        "server.php?command=create_subscription",
+        { 'customerid': customerId, 'planid':planId},
+        function(response){
+            // 正常終了なら完了ページへ
+            postForm( './complete.php', {} );
+        }
+    );
+
 }

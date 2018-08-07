@@ -42,7 +42,7 @@ function moveConfirmPage(){
             var data = {
                 'name':name, 
                 'mail':mail,
-                'number':number.value.replace(/\s/g, ""),
+                'last4':number.value.replace(/\s/g, "").substr(12,4),
                 'cardname':cardname.value,
                 'exp_month':exp_month.value,
                 'exp_year':exp_year.value,

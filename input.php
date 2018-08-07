@@ -36,7 +36,7 @@
             <div class="form-container active form-group">
                 <form action="">
                     <input placeholder="カード番号" type="text" name="number">
-                    <input placeholder="氏名" type="text" name="card_name">
+                    <input placeholder="氏名" type="text" name="cardname">
                     <input placeholder="有効期限(月)" type="text" name="exp_month">
                     <input placeholder="有効期限(年)" type="text" name="exp_year">
                     <input placeholder="CVC番号" type="text" name="cvc">
