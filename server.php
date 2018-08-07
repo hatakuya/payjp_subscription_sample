@@ -81,7 +81,7 @@ class PayJPConnector {
                         $obj['card'][$i]['last4'] = $card['last4'];
                         $obj['card'][$i]['brand'] = $card['brand'];
                         $obj['card'][$i]['exp_month'] = $card['exp_month'];
-                        $obj['card'][$i]['exp_year'] = $card['exp_year'];                        
+                        $obj['card'][$i]['exp_year'] = $card['exp_year'];
                     }
                     
                     foreach($subscripts['data'] as $i => $subscript){
