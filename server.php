@@ -67,8 +67,26 @@ class PayJPConnector {
                 throw new Exception();
             }
             foreach($result['data'] as $element){
-                if($email == $element['email']){
-                    return $element['id'];
+                if($email == $element['email']){                    
+                    $customerInfo = Payjp\Customer::retrieve($element['id']);
+                    $cards = Payjp\Customer::retrieve($element['id'])->cards->all();
+                    $subscripts = Payjp\Customer::retrieve($element['id'])->subscriptions->all();
+
+                    $obj['id'] = $customerInfo['id'];
+                    $obj['email'] = $customerInfo['email'];
+
+                    foreach($cards['data'] as $i => $card){
+                        $obj['card'][$i]['id'] = $card['id'];
+                        $obj['card'][$i]['last4'] = $card['last4'];
+                    }
+                    
+                    foreach($subscripts['data'] as $i => $subscript){
+                        $obj['subscription'][$i]['id'] = $subscript['id'];
+                        $obj['subscription'][$i]['plan']['id'] = $subscript['plan']['id'];
+                        $obj['subscription'][$i]['plan']['name'] = $subscript['plan']['name'];
+                    }
+                    
+                    return json_encode($obj);
                 }
             }
             return "";

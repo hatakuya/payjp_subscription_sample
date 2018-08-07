@@ -28,12 +28,23 @@ function searchCustomer(){
         "server.php?command=get_customer",
         { 'mail': mail},
         function(response){
+            $('#cards').html('');
+            $('#subscriptions').html('');
+
             if(response == ''){
                 $('#customerId').html('未登録');
-                $('#move_input_button').removeClass('disabled');
             }else{
-                $('#customerId').html(response);
-                $('#move_input_button').addClass('disabled');
+                var parsed = $.parseJSON(response);
+                $('#customerId').html(parsed.id);
+                $('#cards').append('<label class="btn"><input name="card" type="radio" value="new">新しいカードで申し込む</label><br>');
+                $.each(parsed.card, function(index, element){
+                    $('#cards').append(
+                        '<label class="btn"><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - ' + element.last4 + '</label><br>'
+                    );
+                });
+                $.each(parsed.subscription, function(index, element){
+                    $('#subscriptions').append('<label>・' + element.plan.name + '</label><br>');
+                });    
             }
         }
     );
@@ -46,7 +57,6 @@ function getPlanList(){
         function(response){
             var parsed = $.parseJSON(response);
             $.each(parsed, function(index, element){
-                console.log(element);
                 $("#planSelect").append( function(){
                     if($("#planSelect option[value='"+ element.id +"']").length == 0) {
                         var planStr = 
@@ -54,6 +64,7 @@ function getPlanList(){
                         return $("<option>").val(element.id).text(planStr);
                     }
                 });
+
                 
             });
         }

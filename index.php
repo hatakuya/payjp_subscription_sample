@@ -12,15 +12,11 @@
     </div>
     <br>
     <div class="container">
-        <h2>プラン選択</h2>
-        <div class="form-group">
-            <select id="planSelect" name="plan">
-            </select>
-        </div>
-    </div>
-    <br>
-    <div class="container">
-        <h2>ユーザー情報</h2>
+        <h2>ユーザー情報
+            <button id="search_customer_button" type="button" class="btn btn-primary">
+                顧客情報検索
+            </button>
+        </h2>
         <div class="form-group">
             <label>顧客ID：</label>
             <label id="customerId" ></label>  
@@ -33,15 +29,30 @@
             <label>メールアドレス</label>
             <input name="mail" type="email" class="form-control" value="test@example.com">
         </div>
-        <button id="search_customer_button" type="button" class="btn btn-primary">顧客情報検索</button>
+        <div class="form-group">
+            <label>契約済みの定期課金</label>
+            <div id="subscriptions" class="form-group">
+            </div>
+        </div>
     </div>
     <br>
     <div class="container">
-        <h2>操作</h2>
-        <h3>新規お申込</h3>
-        <button id="move_input_button" type="button" class="btn btn-primary">カード情報入力</button>
+        <h2>プラン選択</h2>
+        <div class="form-group">
+            <select id="planSelect" name="plan">
+            </select>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <h2>ユーザー操作</h2>
+        <h3>お申込</h3>
+        <div id="cards" class="form-group"></div>
+        <button id="move_input_button" type="button" class="btn btn-primary">申込</button>
+        <br>
         <h3>ご利用停止</h3>
         <button id="stop_button" type="button" class="btn btn-primary">停止</button>
+        <br>
         <h3>ご利用再開</h3>
         <button id="restart_button" type="button" class="btn btn-primary">再開</button>
     </div>

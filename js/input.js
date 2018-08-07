@@ -6,7 +6,7 @@ $(document).ready(function(){
     $('form').card({
         container: '.card-wrapper', 
     });
-    // 
+    
     // payjp.jsの初期化
     Payjp.setPublicKey('pk_test_5e388cdf3be397973de9c4c2');
     document.querySelector('#move_confirm_button').addEventListener('click',moveConfirmPage);
