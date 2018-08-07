@@ -21,7 +21,7 @@ function moveConfirmPage(){
         mail = $('#mail').html(),
         customerId = $('#customerid').html(),
         planName = $('#planname').html(),
-        planId = $('#planid').html();
+        planId = $('#planid').val();
     var number = document.querySelector('input[name="number"]'),
         cardname = document.querySelector('input[name="cardname"]'),
         cvc = document.querySelector('input[name="cvc"]'),

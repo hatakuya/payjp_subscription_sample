@@ -21,7 +21,6 @@ function moveInputPage(){
     var planId = $('[name="plan"] option:selected').val();
     var planName = $('[name="plan"] option:selected').text();
     var customerId = $('#customerId').html();
-
     if($('input[name="card"]:checked').val() == "new"){
         var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
         postForm( './input.php', data );
@@ -64,7 +63,7 @@ function searchCustomer(){
             $('#subscriptions').html('');
 
             if(response == ''){
-                $('#customerId').html('未登録');
+                $('#customerId').html('新規登録');
                 $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
                 $('#subscriptions').append('<label>契約情報はまだありません</label><br>');
             }else{

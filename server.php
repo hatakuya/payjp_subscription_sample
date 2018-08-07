@@ -92,6 +92,7 @@ class PayJPConnector {
      * @return 顧客情報生成結果
      */
     function createCustomer($mail, $cardToken){
+        
         $result;
         try {
             // 顧客情報の追加
@@ -102,10 +103,9 @@ class PayJPConnector {
             if (isset($result['error'])) {
                 throw new Exception();
             }
-        
-            return $result;
+            return $result['id'];
         } catch (Exception $e) {
-            error_log($result['error']);
+            error_log(print_r($result['error'],true));
             return $result['error']['message'];
         }
     }
@@ -124,13 +124,12 @@ class PayJPConnector {
             if (isset($result['error'])) {
                 throw new Exception();
             }
-
+            
             return $result;
         } catch (Exception $e) {
-            error_log($result['error']);
+            error_log(print_r($result['error'],true));
             return $result['error']['message'];
         }
-
     }
 }
 
@@ -147,10 +146,10 @@ switch($command){
         echo $connection->getCustomer($_POST['mail']);
         break;
     case 'create_customer':
-        echo $connection->createCustomer($_POST['mail'],$_POST['tokenid']);
+        echo $connection->createCustomer($_POST['mail'], $_POST['tokenid']);
         break;
     case 'create_subscription':
-        echo $connection->createSubscription($_POST['customerid'],$_POST['planid']);
+        echo $connection->createSubscription($_POST['customerid'], $_POST['planid']);
         break;
     default:
         break;
