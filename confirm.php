@@ -52,7 +52,8 @@
         <input id="exp_year" type="hidden" value="<?php echo $_POST['exp_year']; ?>">        
         <input id="cvc" type="hidden" value="<?php echo $_POST['cvc']; ?>">
         <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
-        <input id="tokenid" type="hidden" value="<?php echo $_POST['tokenid']; ?>">        
+        <input id="tokenid" type="hidden" value="<?php echo $_POST['tokenid']; ?>">  
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>        
         <button id="move_complete_button" type="button" class="btn btn-primary">注文確定</button>
     </div>
 

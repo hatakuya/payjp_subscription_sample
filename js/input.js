@@ -5,12 +5,19 @@ $(document).ready(function(){
     // payjp.jsの初期化
     Payjp.setPublicKey('pk_test_5e388cdf3be397973de9c4c2');
     document.querySelector('#move_confirm_button').addEventListener('click',moveConfirmPage);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
+
     $('input.cc-num').payment('formatCardNumber');
     // アラート表示領域の初期化
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
 });
-
+/**
+ * 前の画面へ遷移する
+ */
+function movePreviousPage(){
+    location.href = document.referrer;
+}
 /**
  * 確認画面への遷移ロジック
  * 画面上の情報を収集

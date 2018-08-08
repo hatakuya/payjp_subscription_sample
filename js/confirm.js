@@ -4,12 +4,19 @@
 $(document).ready(function(){
     // 決済実行および完了ページへの遷移
     document.querySelector('#move_complete_button').addEventListener('click',moveThanksPage);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
+
     // アラート表示領域の初期化
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
 
 });
-
+/**
+ * 前の画面へ遷移する
+ */
+function movePreviousPage(){
+    location.href = document.referrer;
+}
 /**
  * 確認画面への遷移ロジック
  * 画面上の情報を収集

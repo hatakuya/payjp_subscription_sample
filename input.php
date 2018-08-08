@@ -5,7 +5,6 @@
     <title>定期購入設定</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/input.css">    
 </head>
 <body>
     <div class="container">
@@ -61,6 +60,7 @@
     </div>
     <br>
     <div class="container text-center">
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>  
         <button id="move_confirm_button" type="button" class="btn btn-primary">確認画面へ</button>
         <input id="tokenid" type="hidden" value=""> 
     </div>
