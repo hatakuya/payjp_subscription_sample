@@ -3,6 +3,9 @@ require_once 'lib/init.php';
 
 /**
  * PayJPAPI連携用モジュール
+ * PayJPConnectorクラスは参考URLの仕様に従って実装（各処理内の引数、戻り値はURL内に記載のパラメータに対応）
+ * JSONをそのまま返しても上手くいかない（先頭にPayJPCollectionの文字列が入ってしまう）ので、一度オブジェクトに整形しエンコード後返却
+ * @see https://pay.jp/docs/api/?php
  */
 class PayJPConnector {
 
@@ -144,6 +147,7 @@ class PayJPConnector {
 
 /**
  * リクエストパラメータに応じた処理を実行
+ * 基本的にGETにて取得したコマンド値に対応した関数を呼び出す
  */
 $result = '';
 
@@ -180,6 +184,7 @@ try{
             break;
     }
 }catch(Exception $e){
+    // エラーハンドリング後は下記の構成でメッセージを返す（Payjp.jsが同様のフォーマットのため統一）
     $obj['error']['message'] = $e->getMessage();
     echo json_encode($obj);
 }

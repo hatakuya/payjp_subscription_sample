@@ -1,8 +1,8 @@
 /**
  * 画面起動時処理
- * ボタン押下時のイベントを定義
  */
 $(document).ready(function(){
+    //　各ボタンクリックのイベントを定義
     document.querySelector('#move_input_button').addEventListener('click',moveInputPage);
     document.querySelector('#search_customer_button').addEventListener('click',searchCustomer);
     document.querySelector('#pause_button').addEventListener('click',pauseService);
@@ -10,7 +10,10 @@ $(document).ready(function(){
     document.querySelector('#cancel_button').addEventListener('click',cancelService);
     document.querySelector('#delete_button').addEventListener('click',deleteService);
 
+    // フォームのメールアドレスから顧客情報と紐づくカード、定期課金情報を取得
     searchCustomer();
+
+    // 選択可能なプランのリストを取得し選択形式に整形して出力
     getPlanList();
 });
 
@@ -26,14 +29,19 @@ function searchCustomer(){
         function(response){
             $('#cards').html('');
             $('#subscriptions').html('');
+            // 契約情報がなければその旨を通知
             if(response == ''){
                 $('#customerId').html('新規登録');
                 $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
                 $('#subscriptions').append('<label>契約情報はまだありません</label><br>');
             }else{
+                // 正常取得時
                 var parsed = $.parseJSON(response);
 
+                // JSONデータをパース
                 $('#customerId').html(parsed.id);
+                
+                // カード情報の一覧を出力
                 $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
                 $.each(parsed.card, function(index, element){
                     $('#cards').append('<label class="btn"><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
@@ -43,6 +51,8 @@ function searchCustomer(){
                     $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
                     $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '">');
                 });
+
+                // 顧客が契約している定期課金情報の一覧を出力
                 $.each(parsed.subscription, function(index, element){
                     $('#subscriptions').append('<label>・' + element.plan.name + '</label><br>');
                     $('#cards').append('<input type="hidden" id="' +element.plan.id+ '" value="' + element.id + '">');
@@ -90,10 +100,12 @@ function moveInputPage(){
     if(subscriptionId != undefined){
         alert('すでに契約済みのプランを選択しています。');
     }else{
+        // 新規であればカード情報入力画面へ遷移
         if($('input[name="card"]:checked').val() == "new"){
             var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
             postForm( './input.php', data );
         }else{
+            // 登録済みカードが選択されている場合は紐づく情報を元に確認画面へ遷移
             var cardId = $('input[name="card"]:checked').val();
             var cardName = $('#name_' + cardId).val();
             var last4 = $('#last4_' + cardId).val();

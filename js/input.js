@@ -4,10 +4,14 @@
 $(document).ready(function(){    
     // payjp.jsの初期化
     Payjp.setPublicKey('pk_test_5e388cdf3be397973de9c4c2');
+    
+    // ボタンクリックの処理を定義
     document.querySelector('#move_confirm_button').addEventListener('click',moveConfirmPage);
     document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
 
+    // カード番号の４桁区切りを有効化
     $('input.cc-num').payment('formatCardNumber');
+
     // アラート表示領域の初期化
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
@@ -20,9 +24,9 @@ function movePreviousPage(){
 }
 /**
  * 確認画面への遷移ロジック
- * 画面上の情報を収集
  */
 function moveConfirmPage(){
+    // 画面上に保持している各種情報を収集
     var name = $('#name').html(),
         mail = $('#mail').html(),
         customerId = $('#customerid').html(),
@@ -39,8 +43,11 @@ function moveConfirmPage(){
         exp_month: exp_month.value,
         exp_year: exp_year.value
     };
+
+    // Payjp.jsライブラリを使用してカード情報のトークンを取得
     Payjp.createToken(card, function(s, response) {
         $('#danger_area').hide();
+        // Payjpサーバからのエラーをハンドリングし、問題なければトークンIDを含めて次の画面へ遷移
         if (response.error) {
             $('#danger_area').html("エラーが発生しました。入力されたカードは使用できません。入力内容を再確認してください。エラー詳細（" + response.error.message + "）");
             $('#danger_area').show();
