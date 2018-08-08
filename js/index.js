@@ -15,44 +15,6 @@ $(document).ready(function(){
 });
 
 /**
- * クレジットカード情報入力画面への遷移
- * 事前にページ上に保持しているユーザー情報を取得する
- */
-function moveInputPage(){
-    var name = $('input[name="name"]').val();
-    var mail = $('input[name="mail"]').val();
-    var planId = $('[name="plan"] option:selected').val();
-    var planName = $('[name="plan"] option:selected').text();
-    var customerId = $('#customerId').html();
-    if($('input[name="card"]:checked').val() == "new"){
-        var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
-        postForm( './input.php', data );
-    }else{
-        var cardId = $('input[name="card"]:checked').val();
-        var cardName = $('#name_' + cardId).val();
-        var last4 = $('#last4_' + cardId).val();
-        var brand = $('#brand_' + cardId).val();
-        var exp_month = $('#exp_month_' + cardId).val();
-        var exp_year = $('#exp_year_' + cardId).val();
-        var data = {
-            'name':name,
-            'mail':mail,
-            'planid':planId,
-            'planname':planName,
-            'customerid':customerId,
-            'cardid':cardId,
-            'cardname':cardName,
-            'last4':last4,
-            'brand':brand,
-            'exp_month':exp_month,
-            'exp_year':exp_year,
-        };
-
-        postForm( './confirm.php', data );
-    }
-}
-
-/**
  * 入力されたメールアドレスに紐付く顧客情報を取得
  * 顧客に紐付くカード情報および契約している定期決済情報を画面へ表示する
  */
@@ -102,14 +64,58 @@ function getPlanList(){
             $.each(parsed, function(index, element){
                 $("#planSelect").append( function(){
                     if($("#planSelect option[value='"+ element.id +"']").length == 0) {
+                        var billingDay = element.billing_day == null? "":element.billing_day + "日";
                         var planStr = 
-                            element.name + " :(" + element.amount + " 円)/ 毎月" + element.billing_day + "日支払い"
+                            element.name + " :(" + element.amount + " 円)/ 毎月" + billingDay + "支払い"
                         return $("<option>").val(element.id).text(planStr);
                     }
                 });
             });
         }
     );
+}
+
+/**
+ * クレジットカード情報入力画面への遷移
+ * 事前にページ上に保持しているユーザー情報を取得する
+ */
+function moveInputPage(){
+    var name = $('input[name="name"]').val();
+    var mail = $('input[name="mail"]').val();
+    var planId = $('[name="plan"] option:selected').val();
+    var planName = $('[name="plan"] option:selected').text();
+    var customerId = $('#customerId').html();
+    
+    var subscriptionId = $('#' + planId).val();
+    if(subscriptionId != undefined){
+        alert('すでに契約済みのプランを選択しています。');
+    }else{
+        if($('input[name="card"]:checked').val() == "new"){
+            var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
+            postForm( './input.php', data );
+        }else{
+            var cardId = $('input[name="card"]:checked').val();
+            var cardName = $('#name_' + cardId).val();
+            var last4 = $('#last4_' + cardId).val();
+            var brand = $('#brand_' + cardId).val();
+            var exp_month = $('#exp_month_' + cardId).val();
+            var exp_year = $('#exp_year_' + cardId).val();
+            var data = {
+                'name':name,
+                'mail':mail,
+                'planid':planId,
+                'planname':planName,
+                'customerid':customerId,
+                'cardid':cardId,
+                'cardname':cardName,
+                'last4':last4,
+                'brand':brand,
+                'exp_month':exp_month,
+                'exp_year':exp_year,
+            };
+            postForm( './confirm.php', data );
+        }
+    }
 }
 
 /**

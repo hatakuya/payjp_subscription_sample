@@ -101,7 +101,8 @@ class PayJPConnector {
         if (isset($result['error'])) {
             throw new Exception();
         }        
-        return $result;
+        $obj['result'] = "success";
+        return json_encode($obj);
     }
 
     /**
