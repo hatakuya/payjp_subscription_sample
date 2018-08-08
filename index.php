@@ -47,6 +47,12 @@
         <u><h2>各種操作</h2></u>
         <div class="form-group">
             <h3>プランお申込</h3>
+            <span class="text-muted">
+            顧客IDとプランIDを指定して、定期課金を開始することができます。
+            trial_endを指定することで、プラン情報を上書きするトライアル設定も可能です。 
+            最初の支払いは定期課金作成時に実行されます。課金日(billing_day)が指定されている月次プランの場合は
+            日割り設定(prorate)を有効化しない限り、作成時よりもあとの課金日に最初の支払いが行われます。
+            </span>
             <div id="cards" class="form-group"></div>
             <button id="move_input_button" type="button" class="btn btn-primary">申込</button>
         </div>
