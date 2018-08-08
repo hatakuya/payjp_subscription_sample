@@ -179,5 +179,6 @@ try{
             break;
     }
 }catch(Exception $e){
-    echo $e->getMessage();
+    $obj['error']['message'] = $e->getMessage();
+    echo json_encode($obj);
 }

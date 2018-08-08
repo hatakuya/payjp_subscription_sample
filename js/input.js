@@ -6,6 +6,7 @@ $(document).ready(function(){
     Payjp.setPublicKey('pk_test_5e388cdf3be397973de9c4c2');
     document.querySelector('#move_confirm_button').addEventListener('click',moveConfirmPage);
     $('input.cc-num').payment('formatCardNumber');
+    // アラート表示領域の初期化
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
 });

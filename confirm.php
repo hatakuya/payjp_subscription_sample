@@ -11,6 +11,7 @@
     </div>
     <br>
     <div class="container">
+        <p id="danger_area" class="alert"></p>
         <div class="form-group">
             <label>ID：</label>
             <label><?php echo $_POST['customerid']; ?></label>

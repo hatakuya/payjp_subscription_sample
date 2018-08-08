@@ -10,7 +10,7 @@
         <h1>完了画面</h1>
     </div>
     <div id="result_disp" class="container">
-        購入が完了しました。
+        <h2 class="alert alert-success">ご購入ありがとうございます<h2>
     </div>
 
     <!-- Optional JavaScript -->
