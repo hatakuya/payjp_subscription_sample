@@ -15,7 +15,13 @@ $(document).ready(function(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
-    location.href = document.referrer;
+    var customerId = $('#customerid').val();
+    // 顧客IDがセットされていない場合（ユーザー登録）
+    if(customerId == "新規登録"){
+        postForm( './input.php', {} );
+    }else{
+        postForm( './index.php', {} );
+    }
 }
 /**
  * 確認画面への遷移ロジック

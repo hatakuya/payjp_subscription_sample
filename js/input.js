@@ -16,7 +16,7 @@ $(document).ready(function(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
-    location.href = document.referrer;
+    postForm( './index.php', {} );
 }
 /**
  * 確認画面への遷移ロジック
