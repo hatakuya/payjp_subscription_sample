@@ -11,10 +11,16 @@ $(document).ready(function(){
     searchCustomer();
 });
 
+/**
+ * 定期購入申し込み画面への遷移
+ */
 function moveApplySubscriptionPage(){
 
 }
 
+/**
+ * 各種操作系への遷移（申し込み済みのプランがなければボタン制御にて遷移しない）
+ */
 function moveControllPlanPage(){
 
 }
@@ -29,32 +35,43 @@ function searchCustomer(){
         "server.php?command=get_customer_detail",
         { 'mail': mail},
         function(response){
-            console.log(response);
+            // 表示領域初期化
             $('#customerId').html('');
             $('#cards').html('');
             $('#subscriptions').html('');
             // 契約情報がなければその旨を通知
             if(response == 'null'){
                 $('#customerId').html('未登録');
-                $('#cards').append('<label><input name="card" type="radio" value="new" checked="true">登録されているカードはありません。</label><br>');
-                $('#subscriptions').append('<label>契約情報はまだありません</label><br>');
+                $('#subscriptions').append('<label>・契約済みのプランはありません</label><br>');
+                $('#cards').append('<label>・カード情報は未登録です</label><br>');
             }else{
                 // JSONデータをパース
                 var parsed = $.parseJSON(response);
+                if(parsed.error){
+                    alert(parsed.error.message);
+                    return;
+                }
 
                 // PayJP顧客IDを出力
                 $('#customerId').html(parsed.id);
 
                 // 顧客が契約している定期課金情報の一覧を出力
-                $.each(parsed.subscription, function(index, element){
-                    $('#subscriptions').append('<label>・' + element.plan.name + '</label><br>');
-                });
+                if(parsed.subscription.count != '0'){
+                    $.each(parsed.subscription.data, function(index, element){
+                        $('#subscriptions').append('<label>・' + element.plan.name + '</label><br>');
+                    });    
+                }else{
+                    $('#subscriptions').append('<label>・契約済みのプランはありません</label><br>');
+                }
                 
                 // カード情報の一覧を出力
-                $.each(parsed.card, function(index, element){
-                    $('#cards').append('<label>・XXXX - XXXX - XXXX - '+ element.last4 + '</label><br>');
-                });
-
+                if(parsed.card.count != '0'){
+                    $.each(parsed.card.data, function(index, element){
+                        $('#cards').append('<label>・XXXX - XXXX - XXXX - '+ element.last4 + '</label><br>');
+                    });
+                }else{
+                    $('#cards').append('<label>・カード情報は未登録です</label><br>');
+                }
             }
         }
     );

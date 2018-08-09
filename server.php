@@ -75,14 +75,14 @@ class PayJPConnector {
         if (isset($result['error'])) {
             throw new Exception();
         }
-        $obj;
+        $obj['card']['count'] = $result['count'];
         foreach($result['data'] as $i => $element){
-            $obj['card'][$i]['id'] = $element['id'];
-            $obj['card'][$i]['name'] = $element['name'];                        
-            $obj['card'][$i]['last4'] = $element['last4'];
-            $obj['card'][$i]['brand'] = $element['brand'];
-            $obj['card'][$i]['exp_month'] = $element['exp_month'];
-            $obj['card'][$i]['exp_year'] = $element['exp_year'];
+            $obj['card']['data'][$i]['id'] = $element['id'];
+            $obj['card']['data'][$i]['name'] = $element['name'];                        
+            $obj['card']['data'][$i]['last4'] = $element['last4'];
+            $obj['card']['data'][$i]['brand'] = $element['brand'];
+            $obj['card']['data'][$i]['exp_month'] = $element['exp_month'];
+            $obj['card']['data'][$i]['exp_year'] = $element['exp_year'];
         }
         return $obj;
     }
@@ -96,11 +96,11 @@ class PayJPConnector {
         if (isset($result['error'])) {
             throw new Exception();
         }
-        $obj;
+        $obj['subscription']['count'] = $result['count'];
         foreach($result['data'] as $i => $element){
-            $obj['subscription'][$i]['id'] = $element['id'];
-            $obj['subscription'][$i]['plan']['id'] = $element['plan']['id'];
-            $obj['subscription'][$i]['plan']['name'] = $element['plan']['name'];
+            $obj['subscription']['data'][$i]['id'] = $element['id'];
+            $obj['subscription']['data'][$i]['plan']['id'] = $element['plan']['id'];
+            $obj['subscription']['data'][$i]['plan']['name'] = $element['plan']['name'];
             
         }
         return $obj;
@@ -196,10 +196,14 @@ function getCustomerDetail($mail, $connection){
     }
 
     $cards = $connection->getCustomerCardList($customer['id']);
-    $customer = array_merge($customer, $cards);
+    if($cards['count'] != '0'){
+        $customer = array_merge($customer, $cards);
+    }
 
     $subscriptions = $connection->getCustomerSubscriptionList($customer['id']);
-    $customer = array_merge($customer, $subscriptions);
+    if($subscriptions['count'] != '0'){
+        $customer = array_merge($customer, $subscriptions);
+    }
 
     return $customer;
 }
