@@ -98,12 +98,17 @@ function getCard(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
+    var userId = $('#userid').val(); 
+    var mail = $('#mail').val();
     var customerId = $('#customerid').val();
-    // トークンが入っていれば入力画面へ
-    if(customerId == '未登録'){
-        postForm( './input.php', {} );
+    var planId = $('#planid').val();
+    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
+
+    // 登録済みであるか、否かで遷移先を切り替える
+    if(customerId == '未登録'){    
+        postForm( './input.php', data );
     }else{
-        postForm( './index.php', {} );
+        postForm( './paymentselect.php', data );
     }
 }
 

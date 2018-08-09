@@ -28,12 +28,11 @@ class PayJPConnector {
      * 登録済みプラン情報一覧の取得
      */
     function getPlan($planId){
-        error_log($planId);
         $result = Payjp\Plan::retrieve($planId);
         if (isset($result['error'])) {
             throw new Exception();
         }
-        
+
         $obj['id'] = $result['id'];
         $obj['name'] = $result['name'];
         $obj['amount'] = $result['amount'];
@@ -110,6 +109,9 @@ class PayJPConnector {
      * 顧客とカードIDに紐づくカード情報取得
      */
     function getCustomerCard($customerId, $cardId){
+        error_log($customerId);
+        error_log($cardId);
+
         $cu = Payjp\Customer::retrieve($customerId);
         $result = $cu->cards->retrieve($cardId);
         if (isset($result['error'])) {
@@ -301,7 +303,7 @@ try{
             echo json_encode($connection->getPlanList());
             break;
         case 'get_customer_card':
-            echo json_encode($connection->getCustomerCard($_POST['customerid']),$_POST['cardid']);
+            echo json_encode($connection->getCustomerCard($_POST['customerid'],$_POST['cardid']));
             break;
         case 'get_customer_card_list':
             echo json_encode($connection->getCustomerCardList($_POST['customerid']));

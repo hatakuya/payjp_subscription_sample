@@ -52,7 +52,12 @@ function getCardList(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
-    postForm( './planselect.php', {} );
+    var userId = $('#userid').val(); 
+    var mail = $('#mail').val();
+    var customerId = $('#customerid').val();
+    var data = {'userid': userId, 'mail':mail, 'customerid':customerId};
+
+    postForm( './planselect.php', data );
 }
 
 /**
@@ -78,6 +83,8 @@ function moveInputPage(){
         var exp_month = $('#exp_month_' + cardId).val();
         var exp_year = $('#exp_year_' + cardId).val();
         var data = {
+            'userid':userId,
+            'mail':mail,
             'customerid':customerId,
             'planid':planId,
             'last4':last4,

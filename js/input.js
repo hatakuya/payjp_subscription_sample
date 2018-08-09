@@ -21,7 +21,12 @@ $(document).ready(function(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
-    postForm( './paymentselect.php', {} );
+    var userId = $('#userid').val(); 
+    var mail = $('#mail').val();
+    var customerId = $('#customerid').val();
+    var planId = $('#planid').val();
+    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
+    postForm( './paymentselect.php', data );
 }
 
 /**
