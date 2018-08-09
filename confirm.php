@@ -39,17 +39,28 @@
     </div>
     <br>
     <div class="container">
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>        
+        <button id="move_complete_button" type="button" class="btn btn-primary">注文確定</button>
+    </div>
+    <!-- POST値格納領域 -->
+    <div class="container">
+        <!-- 顧客基本情報 -->
         <input id="customerid" type="hidden" value="<?php echo $_POST['customerid']; ?>">
-        <input id="mail" type="hidden" value="<?php echo $_POST['mail']; ?>">
-        <input id="number" type="hidden" value="<?php echo $_POST['number']; ?>">
+        <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
+
+        <!-- クレジットカード入力情報(新規入力時の表示用) -->
+        <input id="last4" type="hidden" value="<?php echo $_POST['last4']; ?>">
         <input id="cardname" type="hidden" value="<?php echo $_POST['cardname']; ?>">
         <input id="exp_month" type="hidden" value="<?php echo $_POST['exp_month']; ?>">
         <input id="exp_year" type="hidden" value="<?php echo $_POST['exp_year']; ?>">        
         <input id="cvc" type="hidden" value="<?php echo $_POST['cvc']; ?>">
-        <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
+
+        <!-- クレジットカード情報(新規入力時発行されたトークン) -->
         <input id="tokenid" type="hidden" value="<?php echo $_POST['tokenid']; ?>">  
-        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>        
-        <button id="move_complete_button" type="button" class="btn btn-primary">注文確定</button>
+
+        <!-- クレジットカード情報(登録済みのカードID) -->
+        <input id="cardid" type="hidden" value="<?php echo $_POST['cardid']; ?>">  
+
     </div>
 
     <!-- Optional JavaScript -->

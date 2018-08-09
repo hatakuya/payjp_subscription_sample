@@ -20,17 +20,16 @@ $(document).ready(function(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
-    postForm( './index.php', {} );
+    postForm( './paymentselect.php', {} );
 }
 /**
  * 確認画面への遷移ロジック
  */
 function moveConfirmPage(){
     // 画面上に保持している各種情報を収集
-    var mail = $('#mail').html(),
-        customerId = $('#customerid').html(),
-        planName = $('#planname').html(),
+    var customerId = $('#customerid').val(),
         planId = $('#planid').val();
+
     var number = document.querySelector('input[name="number"]'),
         cardname = document.querySelector('input[name="cardname"]'),
         cvc = document.querySelector('input[name="cvc"]'),
@@ -38,6 +37,7 @@ function moveConfirmPage(){
         exp_year = document.querySelector('input[name="exp_year"]');
     var card = {
         number: number.value.replace(/\s/g, ""),
+        name:cardname,
         cvc: cvc.value,
         exp_month: exp_month.value,
         exp_year: exp_year.value
@@ -52,18 +52,14 @@ function moveConfirmPage(){
             $('#danger_area').show();
         }
         else {
-            var tokenId = response.id;
             var data = {
-                'mail':mail,
-                'last4':number.value.replace(/\s/g, "").substr(12,4),
-                'cardname':cardname.value,
-                'exp_month':exp_month.value,
-                'exp_year':exp_year.value,
-                'cvc':cvc.value,
-                'tokenid':tokenId,
                 'customerid':customerId,
-                'planname':planName,
-                'planid':planId
+                'planid':planId,
+                'last4':response.card.last4,
+                'cardname':response.card.name,
+                'exp_month':response.card.exp_month,
+                'exp_year':response.card.exp_year,
+                'tokenid':response.id
             };
             postForm( './confirm.php', data );    
         }

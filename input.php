@@ -18,7 +18,7 @@
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
             </div>
             <input type="text" class="form-control" name="cardname" placeholder="TARO YAMADA" required="">
-        </div> <!-- input-group.// -->
+        </div>
 
         <div class="form-group">
             <label for="number">カード番号</label>
@@ -27,8 +27,8 @@
                     <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
                 </div>
                 <input type="text" class="form-control cc-num" name="number" placeholder="XXXX XXXX XXXX XXXX">
-            </div> <!-- input-group.// -->
-        </div> <!-- form-group.// -->
+            </div>
+        </div>
 
         <label><span class="hidden-xs">有効期限</span> </label>
         <div class="form-inline">
@@ -46,6 +46,13 @@
         <button id="move_confirm_button" type="button" class="btn btn-primary">確認画面へ</button>
         <input id="tokenid" type="hidden" value=""> 
     </div>
+    <!-- POST値格納領域 -->
+    <div class="container">
+        <input type="hidden" id="mail" value="<?php echo $_POST['mail']; ?>">
+        <input type="hidden" id="customerid" value="<?php echo $_POST['customerid']; ?>">
+        <input type="hidden" id="planid" value="<?php echo $_POST['planid']; ?>">
+    </div>
+
     <!-- Optional JavaScript -->
     <script type="text/javascript" src="js/jquery/min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
