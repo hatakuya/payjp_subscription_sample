@@ -8,24 +8,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>お支払情報入力画面</h1>
+        <h1>クレジットカード情報入力</h1>
     </div>
     <div class="container">
-        <h3>ご注文情報</h3>
-        <div class="form-group">
-            <label>ID : </label><label id="customerid"><?php echo $_POST['customerid']; ?></label>
-        </div>
-        <div class="form-group">
-            <label>メールアドレス : </label><label id="mail"><?php echo $_POST['mail']; ?></label>
-        </div>
-        <div class="form-group">
-            <label>プラン : </label><label id="planname"><?php echo $_POST['planname']; ?></label>
-        </div>
-        <input id="planid" type="hidden" value="<?php echo $_POST['planid'];?>">
-    </div>
-
-    <div class="container">
-        <h3>お支払情報</h3>
         <p id="danger_area" class="alert"></p>
         <label for="cardname">カード名義</label>
         <div class="input-group">

@@ -46,7 +46,6 @@ function getSelectablePlanList(){
                 return;
             }
 
-            console.log(response);
             var parsed = $.parseJSON(response);
             if(parsed.error){
                 alert("エラーが発生しました。詳細：" + parsed.error.message);
@@ -67,43 +66,12 @@ function getSelectablePlanList(){
 }
 
 /**
- * クレジットカード情報入力画面への遷移
- * 事前にページ上に保持しているユーザー情報を取得する
+ * 支払い方法選択画面への遷移
  */
 function movePaymentSelectPage(){
-    // 顧客IDを取得
-    var customerId = $('#customerId').val();
-    
-    // 契約中プランを取得
-    var subscriptionId = $('#' + planId).val();
-    if(subscriptionId != undefined){
-        alert('すでに契約済みのプランを選択しています。');
-    }else{
-        // 新規であればカード情報入力画面へ遷移
-        if($('input[name="card"]:checked').val() == "new"){
-            var data = {'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
-            postForm( './input.php', data );
-        }else{
-            // 登録済みカードが選択されている場合は紐づく情報を元に確認画面へ遷移
-            var cardId = $('input[name="card"]:checked').val();
-            var cardName = $('#name_' + cardId).val();
-            var last4 = $('#last4_' + cardId).val();
-            var brand = $('#brand_' + cardId).val();
-            var exp_month = $('#exp_month_' + cardId).val();
-            var exp_year = $('#exp_year_' + cardId).val();
-            var data = {
-                'mail':mail,
-                'planid':planId,
-                'planname':planName,
-                'customerid':customerId,
-                'cardid':cardId,
-                'cardname':cardName,
-                'last4':last4,
-                'brand':brand,
-                'exp_month':exp_month,
-                'exp_year':exp_year,
-            };
-            postForm( './confirm.php', data );
-        }
-    }
+    // 顧客IDとプランIDを取得
+    var customerId = $('#customerid').val();
+    var planId = $('[name="plan"] option:selected').val();
+    var data = {'customerid':customerId, 'planid':planId};
+    postForm( './paymentselect.php', data );
 }

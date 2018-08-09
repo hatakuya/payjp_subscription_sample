@@ -263,6 +263,9 @@ try{
         case 'get_plan_list':
             echo json_encode($connection->getPlanList());
             break;
+        case 'get_customer_card_list':
+            echo json_encode($connection->getCustomerCardList($_POST['customerid']));
+            break;
         case 'get_customer_detail':
             echo json_encode(getCustomerDetail($_POST['mail'], $connection));
             break;
