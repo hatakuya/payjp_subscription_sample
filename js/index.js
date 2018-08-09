@@ -35,10 +35,10 @@ function searchCustomer(){
                 $('#cards').append('<label class="btn"><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
                 $('#subscriptions').append('<label>契約情報はまだありません</label><br>');
             }else{
-                // 正常取得時
+                // JSONデータをパース
                 var parsed = $.parseJSON(response);
 
-                // JSONデータをパース
+                // PayJP顧客IDを出力
                 $('#customerId').html(parsed.id);
                 
                 // カード情報の一覧を出力
@@ -90,7 +90,6 @@ function getPlanList(){
  * 事前にページ上に保持しているユーザー情報を取得する
  */
 function moveInputPage(){
-    var name = $('input[name="name"]').val();
     var mail = $('input[name="mail"]').val();
     var planId = $('[name="plan"] option:selected').val();
     var planName = $('[name="plan"] option:selected').text();
@@ -102,7 +101,7 @@ function moveInputPage(){
     }else{
         // 新規であればカード情報入力画面へ遷移
         if($('input[name="card"]:checked').val() == "new"){
-            var data = {'name':name, 'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
+            var data = {'mail':mail, 'planid':planId,'planname':planName, 'customerid':customerId};
             postForm( './input.php', data );
         }else{
             // 登録済みカードが選択されている場合は紐づく情報を元に確認画面へ遷移
@@ -113,7 +112,6 @@ function moveInputPage(){
             var exp_month = $('#exp_month_' + cardId).val();
             var exp_year = $('#exp_year_' + cardId).val();
             var data = {
-                'name':name,
                 'mail':mail,
                 'planid':planId,
                 'planname':planName,

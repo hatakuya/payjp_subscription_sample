@@ -9,8 +9,8 @@ $(document).ready(function(){
     // アラート表示領域の初期化
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
-
 });
+
 /**
  * 前の画面へ遷移する
  */

@@ -27,8 +27,7 @@ function movePreviousPage(){
  */
 function moveConfirmPage(){
     // 画面上に保持している各種情報を収集
-    var name = $('#name').html(),
-        mail = $('#mail').html(),
+    var mail = $('#mail').html(),
         customerId = $('#customerid').html(),
         planName = $('#planname').html(),
         planId = $('#planid').val();
@@ -55,7 +54,6 @@ function moveConfirmPage(){
         else {
             var tokenId = response.id;
             var data = {
-                'name':name, 
                 'mail':mail,
                 'last4':number.value.replace(/\s/g, "").substr(12,4),
                 'cardname':cardname.value,

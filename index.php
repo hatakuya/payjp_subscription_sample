@@ -14,25 +14,23 @@
     <div class="container">
         <u><h2 class=”page-header”>ユーザー情報</h2></u>
         <div class="form-group">
-            <label>顧客ID：</label>
-            <label id="customerId" ></label>  
-        </div>
-        <div class="form-group">
-            <label>氏名</label>
-            <input name="name" type="text" class="form-control" value="大塚 拓也">
-        </div>
-        <div class="form-group">
-            <label>メールアドレス</label>
+            <label>メールアドレスを入力してください</label>
             <input name="mail" type="email" class="form-control" value="test@example.com">
         </div>
-        <div class="form-group">
-            <label>契約済みのプラン</label>
-            <div id="subscriptions" class="form-group">
+        <button id="search_customer_button" type="button" class="btn btn-primary">顧客情報検索</button>
+        <div class="container">
+            <br>
+            <h3>検索結果</h3>
+            <div class="form-group">
+                <label>顧客ID：</label>
+                <label id="customerId" ></label>  
+            </div>
+            <div class="form-group">
+                <label>契約済みのプラン</label>
+                <div id="subscriptions" class="form-group">
+                </div>
             </div>
         </div>
-        <button id="search_customer_button" type="button" class="btn btn-primary">
-                顧客情報検索
-        </button>
     </div>
     <br>
     <div class="container">

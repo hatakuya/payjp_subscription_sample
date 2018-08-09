@@ -17,10 +17,6 @@
             <label><?php echo $_POST['customerid']; ?></label>
         </div>
         <div class="form-group">
-            <label>氏名：</label>
-            <label><?php echo $_POST['name']; ?></label>
-        </div>
-        <div class="form-group">
             <label>メールアドレス：</label>
             <label><?php echo $_POST['mail']; ?></label>
         </div>
@@ -44,7 +40,6 @@
     <br>
     <div class="container">
         <input id="customerid" type="hidden" value="<?php echo $_POST['customerid']; ?>">
-        <input id="name" type="hidden" value="<?php echo $_POST['name']; ?>">
         <input id="mail" type="hidden" value="<?php echo $_POST['mail']; ?>">
         <input id="number" type="hidden" value="<?php echo $_POST['number']; ?>">
         <input id="cardname" type="hidden" value="<?php echo $_POST['cardname']; ?>">

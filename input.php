@@ -16,9 +16,6 @@
             <label>ID : </label><label id="customerid"><?php echo $_POST['customerid']; ?></label>
         </div>
         <div class="form-group">
-            <label>氏名 : </label><label id="name"><?php echo $_POST['name']; ?></label>
-        </div>
-        <div class="form-group">
             <label>メールアドレス : </label><label id="mail"><?php echo $_POST['mail']; ?></label>
         </div>
         <div class="form-group">
