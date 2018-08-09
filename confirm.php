@@ -30,15 +30,16 @@
         </div>
         <div class="form-group">
             <label>クレジットカード番号：</label>
-            <label>XXXX - XXXX - XXXX - <?php echo $_POST['last4']; ?></label>
+            <label>XXXX - XXXX - XXXX - <label id="disp_last4"><?php echo $_POST['last4']; ?></label></label>
+            <label id="disp_brand"><?php echo $_POST['brand']; ?></label>
         </div>
         <div class="form-group">
             <label>クレジットカード名義：</label>
-            <label><?php echo $_POST['cardname']; ?></label>
+            <label id="disp_cardname"><?php echo $_POST['cardname']; ?></label>
         </div>
         <div class="form-group">
             <label>有効期限：</label>
-            <label><?php echo $_POST['exp_month']; ?> / <?php echo $_POST['exp_year']; ?></label>
+            <label id="disp_exp"><?php echo $_POST['exp_month']; ?> / <?php echo $_POST['exp_year']; ?></label>
         </div>
     </div>
     <br>

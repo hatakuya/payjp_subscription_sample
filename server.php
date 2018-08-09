@@ -23,6 +23,24 @@ class PayJPConnector {
     /********************************************************
      * プラン系API連携
      ********************************************************/
+    
+     /**
+     * 登録済みプラン情報一覧の取得
+     */
+    function getPlan($planId){
+        error_log($planId);
+        $result = Payjp\Plan::retrieve($planId);
+        if (isset($result['error'])) {
+            throw new Exception();
+        }
+        
+        $obj['id'] = $result['id'];
+        $obj['name'] = $result['name'];
+        $obj['amount'] = $result['amount'];
+        $obj['billing_day'] = $result['billing_day'];
+        $obj['interval'] = $result['interval'];
+        return $obj;
+    }
 
     /**
      * 登録済みプラン情報一覧の取得
@@ -68,7 +86,7 @@ class PayJPConnector {
     }
 
     /**
-     * 顧客IDに紐づくカード情報取得
+     * 顧客IDに紐づくカード情報のリスト取得
      */
     function getCustomerCardList($customerId){
         $result = Payjp\Customer::retrieve($customerId)->cards->all();
@@ -85,6 +103,25 @@ class PayJPConnector {
             $obj['card']['data'][$i]['exp_month'] = $element['exp_month'];
             $obj['card']['data'][$i]['exp_year'] = $element['exp_year'];
         }
+        return $obj;
+    }
+
+    /**
+     * 顧客とカードIDに紐づくカード情報取得
+     */
+    function getCustomerCard($customerId, $cardId){
+        $cu = Payjp\Customer::retrieve($customerId);
+        $result = $cu->cards->retrieve($cardId);
+        if (isset($result['error'])) {
+            throw new Exception();
+        }
+        $obj;
+        $obj['id'] = $result['id'];
+        $obj['name'] = $result['name'];                        
+        $obj['last4'] = $result['last4'];
+        $obj['brand'] = $result['brand'];
+        $obj['exp_month'] = $result['exp_month'];
+        $obj['exp_year'] = $result['exp_year'];
         return $obj;
     }
 
@@ -257,8 +294,14 @@ try{
     $connection = new PayJPConnector();
     $command = $_GET['command'];
     switch($command){
+        case 'get_plan':
+            echo json_encode($connection->getPlan($_POST['planid']));
+            break;
         case 'get_plan_list':
             echo json_encode($connection->getPlanList());
+            break;
+        case 'get_customer_card':
+            echo json_encode($connection->getCustomerCard($_POST['customerid']),$_POST['cardid']);
             break;
         case 'get_customer_card_list':
             echo json_encode($connection->getCustomerCardList($_POST['customerid']));

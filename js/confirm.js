@@ -9,7 +9,90 @@ $(document).ready(function(){
     // アラート表示領域の初期化
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
+
+    // 選択プランの名称取得
+    getPlan();
+
+    // クレジットカード情報の取得（登録済の場合のみ）
+    var tokenId = $('#tokenid').val();
+    if(tokenId == ''){
+        getCard();
+    }
+    // ロゴの切り替え
+    displayLogo();
 });
+
+/**
+ * クレジットカードのロゴを表示
+ */
+function displayLogo(){
+    var logoStr = $('#disp_brand').html();
+    switch(logoStr){
+        case 'Visa':
+            $('#disp_brand').html("<img class='img-fluid' src='./img/card_visa.png' />");
+            break;
+        case 'MasterCard':
+            $('#disp_brand').html("<img class='img-fluid' src='./img/card_master.png' />");
+            break;
+        case 'JCB':
+            $('#disp_brand').html("<img class='img-fluid' src='./img/card_jcb.png' />");
+            break;  
+        case 'American Express':
+            $('#disp_brand').html("<img class='img-fluid' src='./img/card_amex.png' />");
+            break;
+        case 'Diners Club':
+            $('#disp_brand').html("<img class='img-fluid' src='./img/card_dinersclub.png' />");
+            break;
+        case 'Discover':
+            $('#disp_brand').html("<img class='img-fluid' src='./img/card_discover.png' />");
+            break;
+    }
+}
+
+/**
+ * プラン情報を取得する
+ */
+function getPlan(){
+    var planId = $('#planid').val();
+    $.post(
+        "server.php?command=get_plan",
+        { 'planid':planId },
+        function(response){
+            var parsed = $.parseJSON(response);
+            if (parsed.error) {
+                $('#danger_area').html("プラン取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
+                $('#danger_area').show();
+            }else{
+                $('#planname').html(parsed.name);
+            }
+        }
+    );
+}
+
+/**
+ * 指定したカードIDに紐づく情報を取得する
+ */
+function getCard(){
+    var customerId = $('#customerid').val();
+    var cardId = $('#cardid').val();
+    $.post(
+        "server.php?command=get_customer_card",
+        { 'customerid':customerId, 'cardid': cardId},
+        function(response){
+            var parsed = $.parseJSON(response);
+            if (parsed.error) {
+                $('#danger_area').html("カード情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
+                $('#danger_area').show();
+            }else{
+                $('#disp_last4').html(parsed.last4);
+                $('#disp_cardname').html(parsed.name);
+                $('#disp_brand').html(parsed.brand);
+                $('#disp_exp').html(parsed.exp_month + " / " + parsed.exp_year);
+            }
+        }
+    );
+
+}
 
 /**
  * 前の画面へ遷移する

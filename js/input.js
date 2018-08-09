@@ -16,12 +16,14 @@ $(document).ready(function(){
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
 });
+
 /**
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
     postForm( './paymentselect.php', {} );
 }
+
 /**
  * 確認画面への遷移ロジック
  */
@@ -59,7 +61,8 @@ function moveConfirmPage(){
                 'customerid':customerId,
                 'planid':planId,
                 'last4':response.card.last4,
-                'cardname':response.card.name,
+                'brand':response.card.brand,
+                'cardname':cardname.value, // レスポンス(response.card.name)を見ると値が入ってこないため、確認画面にて顧客情報より取得
                 'exp_month':response.card.exp_month,
                 'exp_year':response.card.exp_year,
                 'tokenid':response.id
