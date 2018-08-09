@@ -24,17 +24,15 @@ function movePreviousPage(){
     }
 }
 /**
- * 確認画面への遷移ロジック
- * 画面上の情報を収集
+ * 決済処理を実行後完了ページへ遷移
  */
 function moveThanksPage(){
     $('#danger_area').hide();
-    var mail = $('#mail').val();
     var tokenId = $('#tokenid').val();
     var planId = $('#planid').val();
     var customerId = $('#customerid').val();
-    // 顧客IDがセットされていない場合（ユーザー登録）
-    if(customerId == "新規登録"){
+    // トークンが入っていれば新規顧客登録
+    if(tokenId){
             $.post(
             "server.php?command=create_customer",
             { 'mail': mail, 'tokenid':tokenId},

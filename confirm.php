@@ -13,8 +13,12 @@
     <div class="container">
         <p id="danger_area" class="alert"></p>
         <div class="form-group">
-            <label>ID：</label>
-            <label><?php echo $_POST['customerid']; ?></label>
+            <label>ユーザID：</label>
+            <label id="userid" ></label>  
+        </div>
+        <div class="form-group">
+            <label>PayJP顧客ID：</label>
+            <label><?php echo $_POST['customerid']; ?></label>  
         </div>
         <div class="form-group">
             <label>メールアドレス：</label>
@@ -22,7 +26,7 @@
         </div>
         <div class="form-group">
             <label>選択プラン：</label>
-            <label><?php echo $_POST['planname']; ?></label>
+            <label id="planname"></label>
         </div>
         <div class="form-group">
             <label>クレジットカード番号：</label>
@@ -45,6 +49,7 @@
     <!-- POST値格納領域 -->
     <div class="container">
         <!-- 顧客基本情報 -->
+        <input type="hidden" id="mail" value="<?php echo $_POST['mail']; ?>">
         <input id="customerid" type="hidden" value="<?php echo $_POST['customerid']; ?>">
         <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
 

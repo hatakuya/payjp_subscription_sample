@@ -15,8 +15,10 @@ $(document).ready(function(){
  * 定期購入申し込み画面への遷移
  */
 function moveApplySubscriptionPage(){
+    var mail = $('input[name="mail"]').val();
     var customerId = $('#customerid').html();
     var data = {
+        'mail':mail,
         'customerid':customerId
     };
     postForm("./planselect.php",data);

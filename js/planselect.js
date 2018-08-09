@@ -69,9 +69,9 @@ function getSelectablePlanList(){
  * 支払い方法選択画面への遷移
  */
 function movePaymentSelectPage(){
-    // 顧客IDとプランIDを取得
+    var mail = $('#mail').val();
     var customerId = $('#customerid').val();
     var planId = $('[name="plan"] option:selected').val();
-    var data = {'customerid':customerId, 'planid':planId};
+    var data = {'mail':mail, 'customerid':customerId, 'planid':planId};
     postForm( './paymentselect.php', data );
 }

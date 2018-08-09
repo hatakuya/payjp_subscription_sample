@@ -21,6 +21,7 @@
     </div>
     <!-- POST値格納領域 -->
     <div class="container">
+        <input type="hidden" id="mail" value="<?php echo $_POST['mail']; ?>">
         <input type="hidden" id="customerid" value="<?php echo $_POST['customerid']; ?>">
         <input type="hidden" id="planid" value="<?php echo $_POST['planid']; ?>">
     </div>
