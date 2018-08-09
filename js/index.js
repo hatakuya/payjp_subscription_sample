@@ -15,18 +15,18 @@ $(document).ready(function(){
  * 定期購入申し込み画面への遷移
  */
 function moveApplySubscriptionPage(){
-    var customerId = $('#customerId').html();
+    var customerId = $('#customerid').html();
     var data = {
         'customerid':customerId
     };
-    postForm("./selectplan.php",data);
+    postForm("./planselect.php",data);
 }
 
 /**
  * 各種操作系への遷移（申し込み済みのプランがなければボタン制御にて遷移しない）
  */
 function moveControllPlanPage(){
-    var customerId = $('#customerId').html();
+    var customerId = $('#customerid').html();
     var data = {
         'customerid':customerId
     };
@@ -44,14 +44,14 @@ function searchCustomer(){
         { 'mail': mail},
         function(response){
             // 表示領域初期化
-            $('#customerId').html('');
+            $('#customerid').html('');
             $('#cards').html('');
             $('#subscriptions').html('');
             $('#controll_plan_button').prop("disabled", false);
 
             // 契約情報がなければその旨を通知
             if(response == 'null'){
-                $('#customerId').html('未登録');
+                $('#customerid').html('未登録');
                 $('#subscriptions').append('<label>・契約済みのプランはありません</label><br>');
                 $('#cards').append('<label>・カード情報は未登録です</label><br>');
             }else{
@@ -63,7 +63,7 @@ function searchCustomer(){
                 }
 
                 // PayJP顧客IDを出力
-                $('#customerId').html(parsed.id);
+                $('#customerid').html(parsed.id);
 
                 // 顧客が契約している定期課金情報の一覧を出力
                 if(parsed.subscription.count != '0'){

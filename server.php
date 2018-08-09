@@ -208,6 +208,45 @@ function getCustomerDetail($mail, $connection){
     return $customer;
 }
 
+/**
+ * 選択可能なプランの一覧から顧客が未契約のプランを返却する
+ */
+function getSelectablePlanList($customerId, $connection){
+    // プランの一覧を取得
+    $plans = $connection->getPlanList();
+    if($customerId == '未登録'){
+        return $plans;
+    }
+
+    // 顧客IDに紐づく定期課金リストを取得する(存在しなければ全プランを出力する))
+    $subscriptions = $connection->getCustomerSubscriptionList($customerId);
+    if($subscriptions['subscription']['count'] == '0'){
+        return $plans;
+    }
+
+    // 未契約のプランを抽出する
+    $obj;
+    $count = 0;
+    foreach($plans as $i => $plan){
+        $isPush = true;
+        foreach($subscriptions['subscription']['data'] as $j => $subscript){
+            if($plan['id'] == $subscript['plan']['id']){
+                $isPush = false;
+                break;
+            }            
+        }
+        if($isPush){
+            $obj[$count]['id'] = $plan['id'];
+            $obj[$count]['amount'] = $plan['amount'];
+            $obj[$count]['name'] = $plan['name'];
+            $obj[$count]['billing_day'] = $plan['billing_day'];
+            $obj[$count]['interval'] = $plan['interval'];
+            $count++;
+        }
+    }
+    return $obj;
+}
+
 /********************************************************
  * リクエストルーティング
 ********************************************************/
@@ -226,6 +265,9 @@ try{
             break;
         case 'get_customer_detail':
             echo json_encode(getCustomerDetail($_POST['mail'], $connection));
+            break;
+        case 'get_selectable_plan_list':
+            echo json_encode(getSelectablePlanList($_POST['customerid'], $connection));
             break;
         case 'create_customer':
             echo $connection->createCustomer($_POST['mail'], $_POST['tokenid']);

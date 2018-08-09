@@ -27,13 +27,12 @@
         <h3>検索結果</h3>
         <div class="form-group">
             <label>ユーザID：</label>
-            <label id="userId" ></label>  
+            <label id="userid" ></label>  
         </div>
         <div class="form-group">
             <label>PayJP顧客ID：</label>
-            <label id="customerId" ></label>  
+            <label id="customerid" ></label>  
         </div>
-        
         <div class="form-group">
             <label>契約済みプラン</label>
             <div id="subscriptions" class="form-group">
