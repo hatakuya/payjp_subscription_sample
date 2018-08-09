@@ -7,6 +7,7 @@ $(document).ready(function(){
     // 選択対象プランを表示（すでに契約中のプランは除く）
     //　ボタンクリックのイベントを定義
     document.querySelector('#move_input_button').addEventListener('click',moveInputPage);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
 });
 
 /**
@@ -15,32 +16,43 @@ $(document).ready(function(){
  */
 function getCardList(){
     var customerId = $('#customerid').val();
-    $.post(
-        "server.php?command=get_customer_card_list",
-        { 'customerid': customerId},
-        function(response){
-            console.log(response);
-            $('#cards').html('');
-            // 契約情報がなければその旨を通知
-            if(response == ''){
-                $('#cards').append('<label><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
-            }else{
-                // JSONデータをパース
-                var parsed = $.parseJSON(response);
-
-                // カード情報の一覧を出力
-                $('#cards').append('<label><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
-                $.each(parsed.card.data, function(index, element){
-                    $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
-                    $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
-                    $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
-                    $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');
-                    $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
-                    $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '">');
-                });
+    if(customerId != '未登録'){
+        $.post(
+            "server.php?command=get_customer_card_list",
+            { 'customerid': customerId},
+            function(response){
+                console.log(response);
+                $('#cards').html('');
+                // 契約情報がなければその旨を通知
+                if(response == ''){
+                    $('#cards').append('<label><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
+                }else{
+                    // JSONデータをパース
+                    var parsed = $.parseJSON(response);
+                    
+                    // カード情報の一覧を出力
+                    $('#cards').append('<label><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
+                    $.each(parsed.card.data, function(index, element){
+                        $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
+                        $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
+                        $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
+                        $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');
+                        $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
+                        $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '">');
+                    });
+                }
             }
-        }
-    );
+        );    
+    }else{
+        $('#cards').append('<label><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
+    }
+}
+
+/**
+ * 前の画面へ遷移する
+ */
+function movePreviousPage(){
+    postForm( './planselect.php', {} );
 }
 
 /**
@@ -48,13 +60,14 @@ function getCardList(){
  * 事前にページ上に保持しているユーザー情報を取得する
  */
 function moveInputPage(){
+    var userId = $('#userid').val();
     var mail = $('#mail').val();
     var planId = $('#planid').val();
     var customerId = $('#customerid').val();
     
     // 新規であればカード情報入力画面へ遷移
     if($('input[name="card"]:checked').val() == "new"){
-        var data = {'mail':mail, 'planid':planId,'customerid':customerId};
+        var data = {'userid':userId, 'mail':mail, 'planid':planId,'customerid':customerId};
         postForm( './input.php', data );
     }else{
         // 登録済みカードが選択されている場合は紐づく情報を元に確認画面へ遷移
@@ -65,7 +78,6 @@ function moveInputPage(){
         var exp_month = $('#exp_month_' + cardId).val();
         var exp_year = $('#exp_year_' + cardId).val();
         var data = {
-            'mail':mail,
             'customerid':customerId,
             'planid':planId,
             'last4':last4,

@@ -27,9 +27,10 @@ function movePreviousPage(){
  */
 function moveConfirmPage(){
     // 画面上に保持している各種情報を収集
-    var customerId = $('#customerid').val(),
+    var userId = $('#userid').val(),
+        mail = $('#mail').val(),
+        customerId = $('#customerid').val(),
         planId = $('#planid').val();
-
     var number = document.querySelector('input[name="number"]'),
         cardname = document.querySelector('input[name="cardname"]'),
         cvc = document.querySelector('input[name="cvc"]'),
@@ -53,6 +54,8 @@ function moveConfirmPage(){
         }
         else {
             var data = {
+                'mail':mail,
+                'userid':userId,
                 'customerid':customerId,
                 'planid':planId,
                 'last4':response.card.last4,

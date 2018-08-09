@@ -16,13 +16,14 @@ $(document).ready(function(){
  */
 function movePreviousPage(){
     var customerId = $('#customerid').val();
-    // 顧客IDがセットされていない場合（ユーザー登録）
-    if(customerId == "新規登録"){
+    // トークンが入っていれば入力画面へ
+    if(customerId == '未登録'){
         postForm( './input.php', {} );
     }else{
         postForm( './index.php', {} );
     }
 }
+
 /**
  * 決済処理を実行後完了ページへ遷移
  */
@@ -30,20 +31,22 @@ function moveThanksPage(){
     $('#danger_area').hide();
     var tokenId = $('#tokenid').val();
     var planId = $('#planid').val();
+    var userId = $('#userid').val();
     var customerId = $('#customerid').val();
+    var mail = $('#mail').val();
     // トークンが入っていれば新規顧客登録
-    if(tokenId){
-            $.post(
+    if(customerId == '未登録'){
+        $.post(
             "server.php?command=create_customer",
-            { 'mail': mail, 'tokenid':tokenId},
+            { 'userid':userId, 'mail': mail, 'tokenid':tokenId},
             function(response){
                 var parsed = $.parseJSON(response);
                 if (parsed.error) {
                     $('#danger_area').html("決済エラーが発生しました。カードが使用できません。入力内容を再確認してください。エラー詳細（" + parsed.error.message + "）");
                     $('#danger_area').show();
                 }else{
-                    createSubscription(response, planId);
-                }        
+                    createSubscription(parsed, planId);
+                }
             }
         );
     }else{

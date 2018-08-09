@@ -60,6 +60,7 @@ class PayJPConnector {
                 $customerInfo = Payjp\Customer::retrieve($element['id']);
                 $obj['id'] = $customerInfo['id'];
                 $obj['email'] = $customerInfo['email'];
+                $obj['userid'] = $customerInfo['metadata']['user_id'];
                 return $obj;
             }
         }
@@ -110,9 +111,10 @@ class PayJPConnector {
      * 顧客情報生成
      * @return 顧客情報生成結果
      */
-    function createCustomer($mail, $cardToken){        
+    function createCustomer($userId, $mail, $cardToken){        
         // 顧客情報の追加
         $result = Payjp\Customer::create(array(
+            "metadata[user_id]" => $userId,
             "email" => $mail,
             "card" => $cardToken
         ));
@@ -271,7 +273,7 @@ try{
             echo json_encode(getSelectablePlanList($_POST['customerid'], $connection));
             break;
         case 'create_customer':
-            echo $connection->createCustomer($_POST['mail'], $_POST['tokenid']);
+            echo json_encode($connection->createCustomer($_POST['userid'], $_POST['mail'], $_POST['tokenid']));
             break;
         case 'create_subscription':
             echo json_encode($connection->createSubscription($_POST['customerid'], $_POST['planid']));

@@ -10,6 +10,7 @@ $(document).ready(function(){
 
     //　ボタンクリックのイベントを定義
     document.querySelector('#move_paymentselect_button').addEventListener('click',movePaymentSelectPage);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
 });
 
 /**
@@ -66,12 +67,20 @@ function getSelectablePlanList(){
 }
 
 /**
+ * 前の画面へ遷移する
+ */
+function movePreviousPage(){
+    postForm( './index.php', {} );
+}
+
+/**
  * 支払い方法選択画面への遷移
  */
 function movePaymentSelectPage(){
+    var userId = $('#userid').val(); 
     var mail = $('#mail').val();
     var customerId = $('#customerid').val();
     var planId = $('[name="plan"] option:selected').val();
-    var data = {'mail':mail, 'customerid':customerId, 'planid':planId};
+    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
     postForm( './paymentselect.php', data );
 }

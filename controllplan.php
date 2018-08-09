@@ -50,6 +50,7 @@
             </span><br>
             <button id="delete_button" type="button" class="btn btn-primary">削除</button>
         </div>
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>  
     </div>
     <!-- POST値格納領域 -->
     <div class="container">

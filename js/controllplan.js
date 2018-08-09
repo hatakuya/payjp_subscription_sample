@@ -9,6 +9,7 @@ $(document).ready(function(){
     document.querySelector('#resume_button').addEventListener('click',resumeService);
     document.querySelector('#cancel_button').addEventListener('click',cancelService);
     document.querySelector('#delete_button').addEventListener('click',deleteService);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
 });
 
 /**
@@ -114,4 +115,11 @@ function deleteService(){
             }
         }
     );
+}
+
+/**
+ * 前の画面へ遷移する
+ */
+function movePreviousPage(){
+    postForm( './index.php', {} );
 }

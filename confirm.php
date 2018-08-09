@@ -14,7 +14,7 @@
         <p id="danger_area" class="alert"></p>
         <div class="form-group">
             <label>ユーザID：</label>
-            <label id="userid" ></label>  
+            <label><?php echo $_POST['userid']; ?></label>  
         </div>
         <div class="form-group">
             <label>PayJP顧客ID：</label>
@@ -49,7 +49,8 @@
     <!-- POST値格納領域 -->
     <div class="container">
         <!-- 顧客基本情報 -->
-        <input type="hidden" id="mail" value="<?php echo $_POST['mail']; ?>">
+        <input id="userid" type="hidden" value="<?php echo $_POST['userid']; ?>">
+        <input id="mail" type="hidden" value="<?php echo $_POST['mail']; ?>">
         <input id="customerid" type="hidden" value="<?php echo $_POST['customerid']; ?>">
         <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
 
@@ -58,14 +59,12 @@
         <input id="cardname" type="hidden" value="<?php echo $_POST['cardname']; ?>">
         <input id="exp_month" type="hidden" value="<?php echo $_POST['exp_month']; ?>">
         <input id="exp_year" type="hidden" value="<?php echo $_POST['exp_year']; ?>">        
-        <input id="cvc" type="hidden" value="<?php echo $_POST['cvc']; ?>">
 
         <!-- クレジットカード情報(新規入力時発行されたトークン) -->
         <input id="tokenid" type="hidden" value="<?php echo $_POST['tokenid']; ?>">  
 
         <!-- クレジットカード情報(登録済みのカードID) -->
         <input id="cardid" type="hidden" value="<?php echo $_POST['cardid']; ?>">  
-
     </div>
 
     <!-- Optional JavaScript -->

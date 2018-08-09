@@ -17,10 +17,12 @@
         </div>
     </div>
     <div class="container">
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>  
         <button id="move_input_button" type="button" class="btn btn-primary">申込</button>
     </div>
     <!-- POST値格納領域 -->
     <div class="container">
+        <input type="hidden" id="userid" value="<?php echo $_POST['userid']; ?>">
         <input type="hidden" id="mail" value="<?php echo $_POST['mail']; ?>">
         <input type="hidden" id="customerid" value="<?php echo $_POST['customerid']; ?>">
         <input type="hidden" id="planid" value="<?php echo $_POST['planid']; ?>">

@@ -16,8 +16,10 @@ $(document).ready(function(){
  */
 function moveApplySubscriptionPage(){
     var mail = $('input[name="mail"]').val();
+    var userId = $('input[name="userid"]').val();
     var customerId = $('#customerid').html();
     var data = {
+        'userid':userId,
         'mail':mail,
         'customerid':customerId
     };
@@ -46,6 +48,7 @@ function searchCustomer(){
         { 'mail': mail},
         function(response){
             // 表示領域初期化
+            $('#userid').html('');
             $('#customerid').html('');
             $('#cards').html('');
             $('#subscriptions').html('');
@@ -64,7 +67,8 @@ function searchCustomer(){
                     return;
                 }
 
-                // PayJP顧客IDを出力
+                // IDを出力
+                $('#userid').html(parsed.userid);
                 $('#customerid').html(parsed.id);
 
                 // 顧客が契約している定期課金情報の一覧を出力
