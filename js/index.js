@@ -15,14 +15,22 @@ $(document).ready(function(){
  * 定期購入申し込み画面への遷移
  */
 function moveApplySubscriptionPage(){
-
+    var customerId = $('#customerId').html();
+    var data = {
+        'customerid':customerId
+    };
+    postForm("./selectplan.php",data);
 }
 
 /**
  * 各種操作系への遷移（申し込み済みのプランがなければボタン制御にて遷移しない）
  */
 function moveControllPlanPage(){
-
+    var customerId = $('#customerId').html();
+    var data = {
+        'customerid':customerId
+    };
+    postForm("./controllplan.php",data);
 }
 
 /**
@@ -39,6 +47,8 @@ function searchCustomer(){
             $('#customerId').html('');
             $('#cards').html('');
             $('#subscriptions').html('');
+            $('#controll_plan_button').prop("disabled", false);
+
             // 契約情報がなければその旨を通知
             if(response == 'null'){
                 $('#customerId').html('未登録');
@@ -62,6 +72,7 @@ function searchCustomer(){
                     });    
                 }else{
                     $('#subscriptions').append('<label>・契約済みのプランはありません</label><br>');
+                    $('#controll_plan_button').prop("disabled", true);
                 }
                 
                 // カード情報の一覧を出力
