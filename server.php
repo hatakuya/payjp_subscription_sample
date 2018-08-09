@@ -20,6 +20,10 @@ class PayJPConnector {
         Payjp\Payjp::setApiKey($this->secretKey);
     }
 
+    /********************************************************
+     * プラン系API連携
+     ********************************************************/
+
     /**
      * 登録済みプラン情報一覧の取得
      */
@@ -36,44 +40,70 @@ class PayJPConnector {
             $obj[$index]['billing_day'] = $element['billing_day'];
             $obj[$index]['interval'] = $element['interval'];
         }
-        return json_encode($obj);
+        return $obj;
     }
 
+    /********************************************************
+     * 顧客系API連携
+     ********************************************************/
+
     /**
-     * 顧客情報一覧取得
+     * メールアドレスに一致する顧客ID取得
      */
-    function getCustomer($email){
+    function getCustomerByMail($email){
         $result = Payjp\Customer::all();
         if (isset($result['error'])) {
             throw new Exception();
         }
         foreach($result['data'] as $element){
-            if($email == $element['email']){                    
+            if($email == $element['email']){
                 $customerInfo = Payjp\Customer::retrieve($element['id']);
-                $cards = Payjp\Customer::retrieve($element['id'])->cards->all();
-                $subscripts = Payjp\Customer::retrieve($element['id'])->subscriptions->all();
-
                 $obj['id'] = $customerInfo['id'];
                 $obj['email'] = $customerInfo['email'];
-
-                foreach($cards['data'] as $i => $card){
-                    $obj['card'][$i]['id'] = $card['id'];
-                    $obj['card'][$i]['name'] = $card['name'];                        
-                    $obj['card'][$i]['last4'] = $card['last4'];
-                    $obj['card'][$i]['brand'] = $card['brand'];
-                    $obj['card'][$i]['exp_month'] = $card['exp_month'];
-                    $obj['card'][$i]['exp_year'] = $card['exp_year'];
-                }
-                
-                foreach($subscripts['data'] as $i => $subscript){
-                    $obj['subscription'][$i]['id'] = $subscript['id'];
-                    $obj['subscription'][$i]['plan']['id'] = $subscript['plan']['id'];
-                    $obj['subscription'][$i]['plan']['name'] = $subscript['plan']['name'];
-                }
-                return json_encode($obj);
+                return $obj;
             }
         }
         return "";
+    }
+
+    /**
+     * 顧客IDに紐づくカード情報取得
+     */
+    function getCustomerCardList($customerId){
+        $result = Payjp\Customer::retrieve($customerId)->cards->all();
+
+        if (isset($result['error'])) {
+            throw new Exception();
+        }
+        $obj;
+        foreach($result['data'] as $i => $element){
+            $obj['card'][$i]['id'] = $element['id'];
+            $obj['card'][$i]['name'] = $element['name'];                        
+            $obj['card'][$i]['last4'] = $element['last4'];
+            $obj['card'][$i]['brand'] = $element['brand'];
+            $obj['card'][$i]['exp_month'] = $element['exp_month'];
+            $obj['card'][$i]['exp_year'] = $element['exp_year'];
+        }
+        return $obj;
+    }
+
+    /**
+     * 顧客IDに紐づく定期課金情報取得
+     */
+    function getCustomerSubscriptionList($customerId){
+        $result = Payjp\Customer::retrieve($customerId)->subscriptions->all();
+
+        if (isset($result['error'])) {
+            throw new Exception();
+        }
+        $obj;
+        foreach($result['data'] as $i => $element){
+            $obj['subscription'][$i]['id'] = $element['id'];
+            $obj['subscription'][$i]['plan']['id'] = $element['plan']['id'];
+            $obj['subscription'][$i]['plan']['name'] = $element['plan']['name'];
+            
+        }
+        return $obj;
     }
 
     /**
@@ -92,6 +122,14 @@ class PayJPConnector {
         return $result['id'];
     }
 
+    /********************************************************
+     * 定期課金系API連携
+    ********************************************************/
+
+    function getSubscription(){
+
+    }
+
     /**
      * 定期課金生成処理
      * @return 定期課金生成結果
@@ -105,7 +143,7 @@ class PayJPConnector {
             throw new Exception();
         }        
         $obj['result'] = "success";
-        return json_encode($obj);
+        return $obj;
     }
 
     /**
@@ -145,8 +183,32 @@ class PayJPConnector {
     }
 }
 
+/********************************************************
+ * ビジネスロジック記載（API連携クラスを使用したデータ取得の組み合わせ）
+********************************************************/
 /**
- * リクエストパラメータに応じた処理を実行
+ * メールアドレスに紐づくユーザ情報、カード情報、定期課金情報を取得する
+ */
+function getCustomerDetail($mail, $connection){
+    $customer = $connection->getCustomerByMail($mail);
+    if($customer == ""){
+        return null;
+    }
+
+    $cards = $connection->getCustomerCardList($customer['id']);
+    $customer = array_merge($customer, $cards);
+
+    $subscriptions = $connection->getCustomerSubscriptionList($customer['id']);
+    $customer = array_merge($customer, $subscriptions);
+
+    return $customer;
+}
+
+/********************************************************
+ * リクエストルーティング
+********************************************************/
+/**
+ * リクエスト時のパラメータに応じた処理を実行
  * 基本的にGETにて取得したコマンド値に対応した関数を呼び出す
  */
 $result = '';
@@ -156,16 +218,16 @@ try{
     $command = $_GET['command'];
     switch($command){
         case 'get_plan_list':
-            echo $connection->getPlanList();
+            echo json_encode($connection->getPlanList());
             break;
-        case 'get_customer':
-            echo $connection->getCustomer($_POST['mail']);
+        case 'get_customer_detail':
+            echo json_encode(getCustomerDetail($_POST['mail'], $connection));
             break;
         case 'create_customer':
             echo $connection->createCustomer($_POST['mail'], $_POST['tokenid']);
             break;
         case 'create_subscription':
-            echo $connection->createSubscription($_POST['customerid'], $_POST['planid']);
+            echo json_encode($connection->createSubscription($_POST['customerid'], $_POST['planid']));
             break;
         case 'pause_subscription':
             echo $connection->pauseSubscription($_POST['subscriptionid']);

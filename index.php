@@ -8,83 +8,35 @@
 </head>
 <body>
     <div class="container">
-        <h1>定期購入画面</h1>
+        <h1>定期商品のご購入</h1>
+        <h2>対象ユーザ選択</h2>
     </div>
     <br>
     <div class="container">
-        <u><h2 class=”page-header”>ユーザー情報</h2></u>
         <div class="form-group">
             <label>メールアドレスを入力してください</label>
             <input name="mail" type="email" class="form-control" value="test@example.com">
         </div>
-        <button id="search_customer_button" type="button" class="btn btn-primary">顧客情報検索</button>
-        <div class="container">
-            <br>
-            <h3>検索結果</h3>
-            <div class="form-group">
-                <label>顧客ID：</label>
-                <label id="customerId" ></label>  
+        <div class="form-group">
+            <label>ログイン中のユーザID（入力可能）</label>
+            <input name="userid" type="text" class="form-control" value="user00000">
+        </div>
+        <button id="search_customer_button" type="button" class="btn btn-primary">メールアドレスによるPayJP顧客情報検索</button>
+        <br>
+        <br>
+        <h3>検索結果</h3>
+        <div class="form-group">
+            <label>顧客ID：</label>
+            <label id="customerId" ></label>  
+        </div>
+        <div class="form-group">
+            <label>契約済みのプラン</label>
+            <div id="subscriptions" class="form-group">
             </div>
-            <div class="form-group">
-                <label>契約済みのプラン</label>
-                <div id="subscriptions" class="form-group">
-                </div>
-            </div>
         </div>
-    </div>
-    <br>
-    <div class="container">
-        <u><h2 class=”page-header”>プラン選択</h2></u>
-        <div class="form-group">
-            <select id="planSelect" name="plan">
-            </select>
-        </div>
-    </div>
-    <br>
-    <div class="container">
-        <u><h2>各種操作</h2></u>
-        <div class="form-group">
-            <h3>プランお申込</h3>
-            <span class="text-muted">
-            顧客IDとプランIDを指定して、定期課金を開始することができます。
-            trial_endを指定することで、プラン情報を上書きするトライアル設定も可能です。 
-            最初の支払いは定期課金作成時に実行されます。課金日(billing_day)が指定されている月次プランの場合は
-            日割り設定(prorate)を有効化しない限り、作成時よりもあとの課金日に最初の支払いが行われます。
-            </span>
-            <div id="cards" class="form-group"></div>
-            <button id="move_input_button" type="button" class="btn btn-primary">申込</button>
-        </div>
-        <div class="form-group">
-            <h3>ご利用停止</h3>
-            <span class="text-muted">
-            引き落としの失敗やカードが不正である、また定期課金を停止したい場合はこのリクエストで定期購入を停止させます。
-            定期課金を停止させると、再開されるまで引き落とし処理は一切行われません。
-            </span><br>
-            <button id="pause_button" type="button" class="btn btn-primary">停止</button>
-        </div>
-        <div class="form-group">
-            <h3>ご利用再開</h3>
-            <span class="text-muted">
-            停止もしくはキャンセル状態の定期課金を再開させます。
-            </span><br>
-            <button id="resume_button" type="button" class="btn btn-primary">再開</button>
-        </div>
-        <div class="form-group">
-            <h3>ご契約キャンセル</h3>
-            <span class="text-muted">
-            定期課金をキャンセルし、現在の周期の終了日をもって定期課金を終了させます。
-            終了日以前であれば、定期課金の再開リクエスト(/resume)を行うことで、 
-            キャンセルを取り消すことができます。終了日をむかえた定期課金は、自動的に削除されますのでご注意ください。
-            </span><br>
-            <button id="cancel_button" type="button" class="btn btn-primary">キャンセル</button>
-        </div>
-        <div class="form-group">
-            <h3>ご契約削除</h3>
-            <span class="text-muted">
-            定期課金をすぐに削除します。次回以降の課金は行われずに、一度削除した定期課金は、再び戻すことができません。
-            </span><br>
-            <button id="delete_button" type="button" class="btn btn-primary">削除</button>
-        </div>
+        <div id="cards" class="form-group"></div>
+        <button id="apply_subscription_button" type="button" class="btn btn-primary">定期購入のお申し込み(PayJP)</button>
+        <button id="controll_plan_button" type="button" class="btn btn-primary">契約済プラン操作</button>
     </div>
 
     <!-- Optional JavaScript -->
