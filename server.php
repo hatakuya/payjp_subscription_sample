@@ -125,11 +125,6 @@ class PayJPConnector {
     /********************************************************
      * 定期課金系API連携
     ********************************************************/
-
-    function getSubscription(){
-
-    }
-
     /**
      * 定期課金生成処理
      * @return 定期課金生成結果
@@ -268,6 +263,9 @@ try{
             break;
         case 'get_customer_detail':
             echo json_encode(getCustomerDetail($_POST['mail'], $connection));
+            break;
+        case 'get_customer_subscription_list':
+            echo json_encode($connection->getCustomerSubscriptionList($_POST['customerid']));
             break;
         case 'get_selectable_plan_list':
             echo json_encode(getSelectablePlanList($_POST['customerid'], $connection));

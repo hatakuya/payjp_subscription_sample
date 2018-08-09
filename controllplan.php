@@ -12,7 +12,11 @@
     </div>
     <br>
     <div class="container">
-        プラン情報を表示
+        <h3>プラン選択</h3>
+        <div class="form-group">
+            <select id="planSelect" name="plan"></select><br>
+            <span class="text-muted">※未契約のプランは非表示となります。</span>
+        </div>
     </div>
     <div class="container">
         <div class="form-group">
@@ -47,6 +51,10 @@
             <button id="delete_button" type="button" class="btn btn-primary">削除</button>
         </div>
     </div>
+    <!-- POST値格納領域 -->
+    <div class="container">
+        <input type="hidden" id="customerid" value="<?php echo $_POST['customerid']; ?>">
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -54,6 +62,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/controllplan.js"></script>
 </body>
 </html>
