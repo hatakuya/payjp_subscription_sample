@@ -21,7 +21,6 @@ function getSubscriptionList(){
         "server.php?command=get_customer_subscription_list",
         { 'customerid':customerId },
         function(response){
-            console.log(response);
             if(response == 'null'){
                 $("#planSelect").append('<option>選択可能なプランはありません</option>');
                 return;
