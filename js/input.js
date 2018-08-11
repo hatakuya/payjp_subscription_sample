@@ -45,7 +45,7 @@ function moveConfirmPage(){
         exp_year = document.querySelector('input[name="exp_year"]');
     var card = {
         number: number.value.replace(/\s/g, ""),
-        name:cardname,
+        name:cardname.value,
         cvc: cvc.value,
         exp_month: exp_month.value,
         exp_year: exp_year.value

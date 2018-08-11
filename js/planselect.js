@@ -25,7 +25,7 @@ function getPlanList(){
             $.each(parsed, function(index, element){
                 var billingDay = element.billing_day == null? "":element.billing_day + "日";
                 var planStr = element.name + " :(" + element.amount + " 円)/ 毎月" + billingDay + "支払い"
-                $("#planList").append('<label>・' + planStr + '</label>');
+                $("#planList").append('<label>・' + planStr + '</label><br>');
             });
         }
     );

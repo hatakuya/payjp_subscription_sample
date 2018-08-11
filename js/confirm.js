@@ -88,6 +88,7 @@ function getCard(){
                 $('#disp_cardname').html(parsed.name);
                 $('#disp_brand').html(parsed.brand);
                 $('#disp_exp').html(parsed.exp_month + " / " + parsed.exp_year);
+                displayLogo();
             }
         }
     );
