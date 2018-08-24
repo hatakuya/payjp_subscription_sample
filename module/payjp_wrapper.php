@@ -150,7 +150,8 @@ class PayJPConnector {
      * 顧客情報生成
      * @return 顧客情報生成結果
      */
-    function createCustomer($userId, $mail, $cardToken){        
+    function createCustomer($userId, $mail, $cardToken){
+                
         // 顧客情報の追加
         $result = Payjp\Customer::create(array(
             "metadata[user_id]" => $userId,

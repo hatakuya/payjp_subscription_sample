@@ -52,6 +52,7 @@ function setUserSelectable(){
             }
             getSelectablePlanList(parsed[0].customer_id);
             getCardList(parsed[0].customer_id);
+            
         }
     );
 }
@@ -124,7 +125,7 @@ function getCardList(customerId){
  */
 function moveInputPage(){
     var userId = $('#userid').val();
-    var planId = $('#planid').val();
+    var planId = $('[name="plan"] option:selected').val();
     var customerId = $('#customerid').val();
     
     // 新規であればカード情報入力画面へ遷移

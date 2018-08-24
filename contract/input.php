@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>定期購入設定</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
@@ -55,12 +55,12 @@
     </div>
 
     <!-- Optional JavaScript -->
-    <script type="text/javascript" src="js/jquery/min.js"></script>
+    <script type="text/javascript" src="/js/jquery/min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://js.pay.jp/"></script>
-    <script type="text/javascript" src="js/jquery-payment/min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/input.js"></script>
+    <script type="text/javascript" src="/js/jquery-payment/min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/contract/input.js"></script>
 </body>
 </html>

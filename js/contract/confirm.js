@@ -10,6 +10,8 @@ $(document).ready(function(){
     $('#danger_area').hide();
     $('#danger_area').addClass('alert-danger');
 
+    // ユーザー情報の取得
+    getUser();
     // 選択プランの名称取得
     getPlan();
 
@@ -29,25 +31,52 @@ function displayLogo(){
     var logoStr = $('#disp_brand').html();
     switch(logoStr){
         case 'Visa':
-            $('#disp_brand').html("<img class='img-fluid' src='./img/card_visa.png' />");
+            $('#disp_brand').html("<img class='img-fluid' src='../img/card_visa.png' />");
             break;
         case 'MasterCard':
-            $('#disp_brand').html("<img class='img-fluid' src='./img/card_master.png' />");
+            $('#disp_brand').html("<img class='img-fluid' src='../img/card_master.png' />");
             break;
         case 'JCB':
-            $('#disp_brand').html("<img class='img-fluid' src='./img/card_jcb.png' />");
+            $('#disp_brand').html("<img class='img-fluid' src='../img/card_jcb.png' />");
             break;  
         case 'American Express':
-            $('#disp_brand').html("<img class='img-fluid' src='./img/card_amex.png' />");
+            $('#disp_brand').html("<img class='img-fluid' src='../img/card_amex.png' />");
             break;
         case 'Diners Club':
-            $('#disp_brand').html("<img class='img-fluid' src='./img/card_dinersclub.png' />");
+            $('#disp_brand').html("<img class='img-fluid' src='../img/card_dinersclub.png' />");
             break;
         case 'Discover':
-            $('#disp_brand').html("<img class='img-fluid' src='./img/card_discover.png' />");
+            $('#disp_brand').html("<img class='img-fluid' src='../img/card_discover.png' />");
             break;
     }
 }
+
+/**
+ * ユーザ情報を取得する
+ */
+function getUser(){
+    var userId = $('#userid').val();
+    $.post(
+        "../module/database_wrapper.php?command=select_users",
+        { 'user_id':userId },
+        function(response){
+            var parsed = $.parseJSON(response);
+            if (parsed.error) {
+                $('#danger_area').html("ユーザ情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
+                $('#danger_area').show();
+            }else{
+                $('#mail_disp').html(parsed[0].mail);
+                $('#mail').val(parsed[0].mail);
+                if($('#customer_id_disp').val() == ''){
+                    $('#customer_id_disp').html("未登録");
+                    $('#customerid').val("未登録");
+                }
+            }
+        }
+    );
+}
+
+
 
 /**
  * プラン情報を取得する
@@ -55,7 +84,7 @@ function displayLogo(){
 function getPlan(){
     var planId = $('#planid').val();
     $.post(
-        "server.php?command=get_plan",
+        "../module/payjp_wrapper.php?command=get_plan",
         { 'planid':planId },
         function(response){
             var parsed = $.parseJSON(response);
@@ -76,7 +105,7 @@ function getCard(){
     var customerId = $('#customerid').val();
     var cardId = $('#cardid').val();
     $.post(
-        "server.php?command=get_customer_card",
+        "../module/payjp_wrapper.php?command=get_customer_card",
         { 'customerid':customerId, 'cardid': cardId},
         function(response){
             var parsed = $.parseJSON(response);
@@ -126,7 +155,7 @@ function moveThanksPage(){
     // トークンが入っていれば新規顧客登録
     if(customerId == '未登録'){
         $.post(
-            "server.php?command=create_customer",
+            "../module/payjp_wrapper.php?command=create_customer",
             { 'userid':userId, 'mail': mail, 'tokenid':tokenId},
             function(response){
                 var parsed = $.parseJSON(response);
@@ -150,7 +179,7 @@ function moveThanksPage(){
  */
 function createSubscription(customerId, planId){
     $.post(
-        "server.php?command=create_subscription",
+        "../module/payjp_wrapper.php?command=create_subscription",
         { 'customerid': customerId, 'planid':planId},
         function(response){
             // 登録済みカードの場合は顧客IDを使って決済

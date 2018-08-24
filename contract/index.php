@@ -23,15 +23,14 @@
             <div id="cards" class="form-group"></div>
         </div>
     </div>
-
     <div class="container" style="margin-top:20px;">
         <button id="apply_subscription_button" type="button" class="btn btn-primary">お申し込み</button>
     </div>
+    <hr>
     <div class="container"  style="margin-top:20px;">
         <h3>プラン一覧</h3>
         <div id="planList" class="form-group"></div>
     </div>
-    <hr>
     <div class="container" style="margin-top:20px;">
         <h4 class="text-muted">定期課金開始について</h4>
         <span class="text-muted">

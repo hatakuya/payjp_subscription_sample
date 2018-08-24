@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <title>定期購入設定</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
@@ -18,11 +18,11 @@
         </div>
         <div class="form-group">
             <label>PayJP顧客ID：</label>
-            <label><?php echo $_POST['customerid']; ?></label>  
+            <label id="customer_id_disp"><?php echo $_POST['customerid']; ?></label>  
         </div>
         <div class="form-group">
             <label>メールアドレス：</label>
-            <label><?php echo $_POST['mail']; ?></label>
+            <label id="mail_disp"></label>
         </div>
         <div class="form-group">
             <label>選択プラン：</label>
@@ -69,10 +69,10 @@
     </div>
 
     <!-- Optional JavaScript -->
-    <script src="js/jquery/min.js"></script>
+    <script src="/js/jquery/min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/confirm.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/contract/confirm.js"></script>
 </body>
 </html>
