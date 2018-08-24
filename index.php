@@ -10,7 +10,7 @@
     <div class="container"  style="margin-bottom:10px;">
         <h2>ユーザ検索</h2>
         <div class="form-group">
-            <input name="userid" type="text" class="form-control" value="user00000">
+            <input name="userid" type="number" class="form-control" value="">
         </div>
         <button id="search_customer_button" type="button" class="btn btn-primary">検索</button>
     </div>
@@ -27,14 +27,7 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td><button id="apply_subscription_button" type="button" class="btn btn-primary">定期購入のお申し込み</button></td>
-                    <td><button id="controll_plan_button" type="button" class="btn btn-primary">契約済プラン操作</button></td>
-                </tr>
+            <tbody id="users-table">
             </tbody>
         </table>
     </div>

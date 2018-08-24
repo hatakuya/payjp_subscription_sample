@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/init.php';
+require_once 'lib/payjp_init.php';
 
 /**
  * PayJPAPI連携用モジュール
