@@ -3,7 +3,12 @@
  */
 $(document).ready(function(){
     document.querySelector('#search_customer_button').addEventListener('click',getUsers);
+    document.querySelector('#move_admin_page_button').addEventListener('click',moveAdminPage);
 });
+
+function moveAdminPage(){
+    postForm( './admin/index.php', {} );
+}
 
 function getUsers(){
     var id = $('input[name="userid"]').val();
@@ -28,12 +33,17 @@ function getUsers(){
                 }
 
                 $.each(parsed, function(index, element){
-                    console.log(element.user_id);
                     $("#users-table").append(
                         $("<tr></tr>")
                             .append($('<th scope="row"></th>').text(element.user_id))
                             .append($('<td></td>').text(element.mail))
-                            .append($('<td></td>').text(element.paying_status))
+                            .append($('<td></td>').text(element.paying_status != '0' ? '有料':'通常'))
+                            .append($('<td></td>')
+                                .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">プラン契約</button>'))
+                            .append($('<td></td>')
+                                .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">カード変更</button>'))
+                            .append($('<td></td>')
+                                .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">解約</button>'))
                         );
                 });
             }

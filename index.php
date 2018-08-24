@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <title>TOPページ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
 </head>
 <body>
-    <div class="container"  style="margin-bottom:10px;">
+    <div class="container" style="margin-bottom:10px;">
         <h2>ユーザ検索</h2>
         <div class="form-group">
             <input name="userid" type="number" class="form-control" value="">
         </div>
         <button id="search_customer_button" type="button" class="btn btn-primary">検索</button>
     </div>
-    <br>
-    <div class="container">
+    <div class="container" style="margin-bottom:10px;">
         <h3>検索結果</h3>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">メールアドレス</th>
-                    <th scope="col">有料会員区分</th>
+                    <th scope="col">会員区分</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -31,6 +31,10 @@
             </tbody>
         </table>
     </div>
+    <div class="container" style="margin-bottom:20px;">
+        <button id="move_admin_page_button" type="button" class="btn btn-primary">管理画面へ</button>
+    </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery/min.js"></script>
