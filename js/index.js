@@ -46,7 +46,6 @@ function getUsers(){
                                 .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">解約</button>'))
                         );
                 });
-
                 addEvent();
             }
         }
