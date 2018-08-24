@@ -39,15 +39,23 @@ function getUsers(){
                             .append($('<td></td>').text(element.mail))
                             .append($('<td></td>').text(element.paying_status != '0' ? '有料':'通常'))
                             .append($('<td></td>')
-                                .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">プラン契約</button>'))
+                                .append('<button type="button" class="apply_subscription_button btn btn-primary">プラン契約</button>'))
                             .append($('<td></td>')
                                 .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">カード変更</button>'))
                             .append($('<td></td>')
                                 .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">解約</button>'))
                         );
                 });
+
+                addEvent();
             }
         }
     );
 }
 
+function addEvent(){
+    document.querySelector('.apply_subscription_button').addEventListener('click',function(){
+        var userid = $(this).closest('tr').children("th").text();
+        postForm("contract/index.php",{'user_id': userid});
+    });
+}
