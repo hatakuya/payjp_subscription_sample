@@ -8,45 +8,41 @@
 </head>
 <body>
     <div class="container">
-        <h1>定期購入</h1>
-    </div>
-    <br>
-    <div class="container"  style="margin-bottom:10px;">
-        <h2>対象ユーザ選択</h2>
+        <h2>プラン選択</h2>
         <div class="form-group">
-            <label>メールアドレスを入力してください</label>
-            <input name="mail" type="email" class="form-control" value="test@example.com">
+            <select id="planSelect" name="plan"></select><br>
+            <span class="text-muted">※すでに契約済みのプランは非表示となります。</span>
         </div>
-        <div class="form-group">
-            <label>ログイン中のユーザID（入力可能）</label>
-            <input name="userid" type="text" class="form-control" value="user00000">
-        </div>
-        <button id="search_customer_button" type="button" class="btn btn-primary">メールアドレスによるPayJP顧客情報検索</button>
     </div>
     <div class="container">
-        <h3>検索結果</h3>
-        <div class="form-group">
-            <label>ユーザID：</label>
-            <label id="userid" ></label>  
-        </div>
-        <div class="form-group">
-            <label>PayJP顧客ID：</label>
-            <label id="customerid" ></label>  
-        </div>
-        <div class="form-group">
-            <label>契約済みプラン</label>
-            <div id="subscriptions" class="form-group">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>登録済みカード</label>
+        <h2>支払い方法選択</h2>
+    </div>
+    <div class="container">
+        <h3>PayJP</h3>
+        <div class="container">
             <div id="cards" class="form-group"></div>
         </div>
     </div>
+
+    <div class="container" style="margin-top:20px;">
+        <button id="apply_subscription_button" type="button" class="btn btn-primary">お申し込み</button>
+    </div>
+    <div class="container"  style="margin-top:20px;">
+        <h3>プラン一覧</h3>
+        <div id="planList" class="form-group"></div>
+    </div>
+    <hr>
+    <div class="container" style="margin-top:20px;">
+        <h4 class="text-muted">定期課金開始について</h4>
+        <span class="text-muted">
+            顧客IDとプランIDを指定して、定期課金を開始することができます。
+            trial_endを指定することで、プラン情報を上書きするトライアル設定も可能です。 
+            最初の支払いは定期課金作成時に実行されます。課金日(billing_day)が指定されている月次プランの場合は
+            日割り設定(prorate)を有効化しない限り、作成時よりもあとの課金日に最初の支払いが行われます。
+        </span>
+    </div>
     <div class="container">
-        <h3>操作</h3>
-        <button id="apply_subscription_button" type="button" class="btn btn-primary">定期購入のお申し込み</button>
-        <button id="controll_plan_button" type="button" class="btn btn-primary">契約済プラン操作</button>
+        <input type="hidden" id="userid" value="<?php echo $_POST['user_id']; ?>">
     </div>
 
     <!-- Optional JavaScript -->
@@ -55,6 +51,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/common.js"></script>
-    <script src="/js/index.js"></script>
+    <script src="/js/contract/index.js"></script>
 </body>
 </html>

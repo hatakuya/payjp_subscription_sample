@@ -17,6 +17,9 @@ try{
         case 'select_users':
             echo json_encode($dao->selectUsers($_POST['user_id']));
             break;
+        case 'select_payjp_user':
+            echo json_encode($dao->selectPayjpUser($_POST['user_id']));
+            break;
         default:
             echo "command not found.";
             break;

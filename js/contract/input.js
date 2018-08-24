@@ -67,7 +67,7 @@ function moveConfirmPage(){
                 'planid':planId,
                 'last4':response.card.last4,
                 'brand':response.card.brand,
-                'cardname':cardname.value, // レスポンス(response.card.name)を見ると値が入ってこないため、確認画面にて顧客情報より取得
+                'cardname':cardname.value,
                 'exp_month':response.card.exp_month,
                 'exp_year':response.card.exp_year,
                 'tokenid':response.id

@@ -54,4 +54,34 @@ class Dao{
         // 結果をリターン
         return $data;
     }
+    
+    /**
+     * 指定したIDに合致するPayJPユーザ情報を取得
+     */
+    function selectPayjpUser($id){
+        $result = $this->connection->query("select * from payjp_users where user_id = " . $id);
+
+        if (!$result) {
+            $sql_error = $this->connection->error;
+            error_log($sql_error);
+            die($sql_error);
+            throw new Exception("データベースへの接続が失敗しました。");
+        }
+
+        $data = array();
+        $duplicate_num = $result->num_rows ;
+        if($duplicate_num > 0){
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }else{
+            $data = null;
+        }
+
+        //接続をクローズ
+        $this->connection->close();
+
+        // 結果をリターン
+        return $data;
+    }
 }

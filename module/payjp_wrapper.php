@@ -250,7 +250,7 @@ function getCustomerDetail($mail, $connection){
 function getSelectablePlanList($customerId, $connection){
     // プランの一覧を取得
     $plans = $connection->getPlanList();
-    if($customerId == '未登録'){
+    if($customerId == ''){
         return $plans;
     }
 
@@ -269,7 +269,7 @@ function getSelectablePlanList($customerId, $connection){
             if($plan['id'] == $subscript['plan']['id']){
                 $isPush = false;
                 break;
-            }            
+            }
         }
         if($isPush){
             $obj[$count]['id'] = $plan['id'];
