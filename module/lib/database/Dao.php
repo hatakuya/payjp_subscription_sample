@@ -48,9 +48,6 @@ class Dao{
             $data = null;
         }
 
-        //接続をクローズ
-        $this->connection->close();
-
         // 結果をリターン
         return $data;
     }
@@ -78,9 +75,6 @@ class Dao{
             $data = null;
         }
 
-        //接続をクローズ
-        $this->connection->close();
-
         // 結果をリターン
         return $data;
     }
@@ -106,10 +100,19 @@ class Dao{
             throw new Exception("データベースへの接続が失敗しました。");
         }
 
-        //接続をクローズ
-        $this->connection->close();
-
         // 結果をリターン
         return "success";
     }
+
+    function updateUserStatus($userid,$status){
+        $result = $this->connection->query("update users set paying_status=". $status ." where user_id = " . $userid);
+        
+    }
+
+    /**
+     * デストラクタ（コネクションクローズ）
+     */
+    function __destruct() {
+        $this->connection->close();
+    }    
 }

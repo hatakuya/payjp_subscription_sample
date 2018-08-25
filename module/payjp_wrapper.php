@@ -322,7 +322,8 @@ function createSubscriptionAndUpdateDatabase($customerId, $planId, $connection){
 
     $dao = new Dao();
     $dao->insertPayjpUser($data);
-
+    $dao->updateUserStatus($data['user_id'], 1);
+    return "success";
 }
 
 /********************************************************
