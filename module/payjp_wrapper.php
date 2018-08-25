@@ -1,5 +1,6 @@
 <?php
 require_once 'lib/payjp_init.php';
+require_once 'lib/database_init.php';
 
 /**
  * PayJPAPI連携用モジュール
@@ -65,6 +66,21 @@ class PayJPConnector {
      ********************************************************/
 
     /**
+     * 顧客IDに紐づく顧客情報取得
+     */
+    function getCustomer($customerId){
+
+        $result = Payjp\Customer::retrieve($customerId);
+        if (isset($result['error'])) {
+            throw new Exception();
+        }
+        $obj;
+        $obj['default_card'] = $result['default_card'];
+        $obj['metadata']['user_id'] = $result['metadata']['user_id'];
+        return $obj;
+    }
+
+    /**
      * メールアドレスに一致する顧客ID取得
      */
     function getCustomerByMail($email){
@@ -109,8 +125,6 @@ class PayJPConnector {
      * 顧客とカードIDに紐づくカード情報取得
      */
     function getCustomerCard($customerId, $cardId){
-        error_log($customerId);
-        error_log($cardId);
 
         $cu = Payjp\Customer::retrieve($customerId);
         $result = $cu->cards->retrieve($cardId);
@@ -151,7 +165,7 @@ class PayJPConnector {
      * @return 顧客情報生成結果
      */
     function createCustomer($userId, $mail, $cardToken){
-                
+        
         // 顧客情報の追加
         $result = Payjp\Customer::create(array(
             "metadata[user_id]" => $userId,
@@ -178,9 +192,9 @@ class PayJPConnector {
         ));
         if (isset($result['error'])) {
             throw new Exception();
-        }        
-        $obj['result'] = "success";
-        return $obj;
+        }
+
+        return $result;
     }
 
     /**
@@ -284,6 +298,33 @@ function getSelectablePlanList($customerId, $connection){
     return $obj;
 }
 
+function createSubscriptionAndUpdateDatabase($customerId, $planId, $connection){
+
+    $subscription = $connection->createSubscription($customerId, $planId);
+
+    // DB登録用定期課金情報
+    $data['subscription_id'] = $subscription['id'];
+    $data['customer_id'] = $customerId;
+
+    // DB登録用顧客情報
+    $customerInfo = $connection->getCustomer($customerId);
+    $data['card_id'] = $customerInfo['default_card'];
+    $data['user_id'] = $customerInfo['metadata']['user_id'];
+    
+    // DB登録用カード情報
+    $card = $connection->getCustomerCard($customerId, $data['card_id']);
+    $data['card_brand'] = $card['brand'];
+    $data['card_name'] = $card['name'];
+    $data['card_last4'] = $card['last4'];
+    $data['card_exp_month'] = $card['exp_month'];
+    $data['card_exp_year'] = $card['exp_year'];
+    //$data['card_cvc'] = $card[''];
+
+    $dao = new Dao();
+    $dao->insertPayjpUser($data);
+
+}
+
 /********************************************************
  * リクエストルーティング
 ********************************************************/
@@ -322,7 +363,7 @@ try{
             echo json_encode($connection->createCustomer($_POST['userid'], $_POST['mail'], $_POST['tokenid']));
             break;
         case 'create_subscription':
-            echo json_encode($connection->createSubscription($_POST['customerid'], $_POST['planid']));
+            echo json_encode(createSubscriptionAndUpdateDatabase($_POST['customerid'], $_POST['planid'], $connection));
             break;
         case 'pause_subscription':
             echo $connection->pauseSubscription($_POST['subscriptionid']);

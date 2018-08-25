@@ -11,7 +11,7 @@
         <h2 class="alert alert-success">決済が完了しました<br>ご購入ありがとうございます</h2>
     </div>
     <div class="container text-center">
-        <a class="btn btn-primary" role="button" href="./index.php">TOPページへ戻る</a> 
+        <a class="btn btn-primary" role="button" href="../index.php">TOPページへ戻る</a> 
     </div>
 
     <!-- Optional JavaScript -->

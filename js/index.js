@@ -53,8 +53,12 @@ function getUsers(){
 }
 
 function addEvent(){
-    document.querySelector('.apply_subscription_button').addEventListener('click',function(){
-        var userid = $(this).closest('tr').children("th").text();
-        postForm("contract/index.php",{'user_id': userid});
+    var elements = $('.apply_subscription_button');
+    $.each(elements, function(index,element){
+        
+        element.addEventListener('click',function(){
+            var userid = $(this).closest('tr').children("th").text();
+            postForm("contract/index.php",{'user_id': userid});
+        });
     });
 }

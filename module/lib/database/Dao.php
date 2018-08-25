@@ -84,4 +84,32 @@ class Dao{
         // 結果をリターン
         return $data;
     }
+
+     /**
+     * 指定したIDに合致するPayJPユーザ情報を取得
+     */
+    function insertPayjpUser($data){
+        $stmt = $this->connection->prepare(
+            "insert into payjp_users (user_id, subscription_id, customer_id, card_brand, card_id, card_name ,card_last4 ,card_exp_month, card_exp_year, card_cvc) "
+            ."values (?,?,?,?,?,?,?,?,?,?) "
+        );
+        $stmt->bind_param( 'isssssiiii', // カラムのデータ種別(i=>int,s=>string)
+                    $data['user_id'], $data['subscription_id'], $data['customer_id'], $data['card_brand'], $data['card_id'], $data['card_name'], $data['card_last4'], $data['card_exp_month'], $data['card_exp_year'], $data['card_cvc']
+                );
+
+        $result = $stmt->execute();
+        
+        if (!$result) {
+            $sql_error = $this->connection->error;
+            error_log($sql_error);
+            die($sql_error);
+            throw new Exception("データベースへの接続が失敗しました。");
+        }
+
+        //接続をクローズ
+        $this->connection->close();
+
+        // 結果をリターン
+        return "success";
+    }
 }

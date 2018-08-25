@@ -76,8 +76,6 @@ function getUser(){
     );
 }
 
-
-
 /**
  * プラン情報を取得する
  */
@@ -182,16 +180,15 @@ function createSubscription(customerId, planId){
         "../module/payjp_wrapper.php?command=create_subscription",
         { 'customerid': customerId, 'planid':planId},
         function(response){
-            // 登録済みカードの場合は顧客IDを使って決済
             var parsed = $.parseJSON(response);
             if (parsed.error) {
                 $('#danger_area').html("決済エラーが発生しました。カードが使用できません。入力内容を再確認してください。エラー詳細（" + parsed.error.message + "）");
                 $('#danger_area').show();
             }else{
-            // 正常終了なら完了ページへ
-                postForm( './complete.php', {} );
+                // 正常終了なら完了ページへ
+                console.log(parsed);
             }
         }
     );
-
 }
+

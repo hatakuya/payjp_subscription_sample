@@ -7,7 +7,7 @@ $(document).ready(function(){
 
     // 顧客IDを元に契約可能なプランと使用可能なカードを設定
     setUserSelectable();
-    
+        
     //　各ボタンクリックのイベントを定義
     document.querySelector('#apply_subscription_button').addEventListener('click',moveInputPage);
 });
@@ -40,18 +40,19 @@ function setUserSelectable(){
         "../module/database_wrapper.php?command=select_payjp_user",
         { 'user_id':userId },
         function(response){
-            if(response == 'null'){
-                alert("登録情報が不正です。管理者に問い合わせてください。");
-                return;
+            if(response != 'null'){
+                var parsed = $.parseJSON(response);
+                if(parsed.error){
+                    alert("エラーが発生しました。詳細：" + parsed.error.message);
+                    return;
+                }
+                getSelectablePlanList(parsed[0].customer_id);
+                getCardList(parsed[0].customer_id);    
+            }else{
+                getSelectablePlanList(null);
+                getCardList(null); 
             }
 
-            var parsed = $.parseJSON(response);
-            if(parsed.error){
-                alert("エラーが発生しました。詳細：" + parsed.error.message);
-                return;
-            }
-            getSelectablePlanList(parsed[0].customer_id);
-            getCardList(parsed[0].customer_id);
             
         }
     );
