@@ -16,7 +16,6 @@ function getUsers(){
         "module/database_wrapper.php?command=select_users",
         { 'user_id': id},
         function(response){
-            console.log(response);
             // 表示領域初期化
             $('#users-table').html('');
 
@@ -33,17 +32,29 @@ function getUsers(){
                 }
 
                 $.each(parsed, function(index, element){
+
+                    var statusText = '通常';
+                    var applyButton = '<button type="button" class="apply_subscription_button btn btn-primary">プラン契約</button>';
+                    var changeCardButton = '<button type="button" class="change_card_button btn btn-primary" disabled="true">カード変更</button>';
+                    var cancelButton = '<button type="button" class="cancel_button btn btn-primary" disabled="true">解約</button>';
+
+                    if(element.paying_status != '0'){
+                        var statusText = '有料';
+                        var changeCardButton = '<button type="button" class="change_card_button btn btn-primary">カード変更</button>';
+                        var cancelButton = '<button type="button" class="cancel_button btn btn-primary">解約</button>';
+                    }
+
                     $("#users-table").append(
                         $("<tr></tr>")
                             .append($('<th scope="row"></th>').text(element.user_id))
                             .append($('<td></td>').text(element.mail))
-                            .append($('<td></td>').text(element.paying_status != '0' ? '有料':'通常'))
+                            .append($('<td></td>').text(statusText))
                             .append($('<td></td>')
-                                .append('<button type="button" class="apply_subscription_button btn btn-primary">プラン契約</button>'))
+                                .append(applyButton))
                             .append($('<td></td>')
-                                .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">カード変更</button>'))
+                                .append(changeCardButton))
                             .append($('<td></td>')
-                                .append('<button id="apply_subscription_button" type="button" class="btn btn-primary">解約</button>'))
+                                .append(cancelButton))
                         );
                 });
                 addEvent();
@@ -53,12 +64,30 @@ function getUsers(){
 }
 
 function addEvent(){
-    var elements = $('.apply_subscription_button');
-    $.each(elements, function(index,element){
-        
+    // 契約ボタンアクションの追加
+    var subscriptions = $('.apply_subscription_button');
+    $.each(subscriptions, function(index,element){
         element.addEventListener('click',function(){
             var userid = $(this).closest('tr').children("th").text();
             postForm("contract/index.php",{'user_id': userid});
         });
     });
+
+    // カード情報変更ボタンアクションの追加
+    var changeCards = $('.change_card_button');
+    $.each(changeCards, function(index,element){
+        element.addEventListener('click',function(){
+            var userid = $(this).closest('tr').children("th").text();
+            postForm("changecard/index.php",{'user_id': userid});
+        });
+    });
+    // キャンセルボタンアクションの追加
+    var cancels = $('.cancel_button');
+    $.each(cancels, function(index,element){
+        element.addEventListener('click',function(){
+            var userid = $(this).closest('tr').children("th").text();
+            postForm("cancel/index.php",{'user_id': userid});
+        });
+    });
+
 }
