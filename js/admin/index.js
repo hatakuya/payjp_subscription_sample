@@ -25,7 +25,6 @@ function getUsers(){
             }else{
                 // JSONデータをパース
                 var parsed = $.parseJSON(response);
-                console.log(parsed);
                 if(parsed.error){
                     alert(parsed.error.message);
                     return;
@@ -34,14 +33,11 @@ function getUsers(){
                 $.each(parsed, function(index, element){
 
                     var statusText = '通常';
-                    var applyButton = '<button type="button" class="apply_subscription_button btn btn-primary">プラン契約</button>';
-                    var changeCardButton = '<button type="button" class="change_card_button btn btn-primary" disabled="true">カード変更</button>';
-                    var cancelButton = '<button type="button" class="cancel_button btn btn-primary" disabled="true">解約</button>';
+                    var applyButton = '<button type="button" class="apply_subscription_button btn btn-primary" disabled="true">契約内容操作</button>';
 
                     if(element.paying_status != '0'){
                         var statusText = '有料';
-                        var changeCardButton = '<button type="button" class="change_card_button btn btn-primary">カード変更</button>';
-                        var cancelButton = '<button type="button" class="cancel_button btn btn-primary">解約</button>';
+                        var applyButton = '<button type="button" class="apply_subscription_button btn btn-primary">契約内容操作</button>';
                     }
 
                     $("#users-table").append(
@@ -51,10 +47,6 @@ function getUsers(){
                             .append($('<td></td>').text(statusText))
                             .append($('<td></td>')
                                 .append(applyButton))
-                            .append($('<td></td>')
-                                .append(changeCardButton))
-                            .append($('<td></td>')
-                                .append(cancelButton))
                         );
                 });
                 addEvent();
@@ -69,24 +61,22 @@ function addEvent(){
     $.each(subscriptions, function(index,element){
         element.addEventListener('click',function(){
             var userid = $(this).closest('tr').children("th").text();
-            postForm("contract/index.php",{'user_id': userid});
-        });
-    });
+            
+            $.post(
+                "/module/database_wrapper.php?command=select_payjp_user",
+                { 'user_id': userid},
+                function(response){
+                    // JSONデータをパース
+                    console.log(response);
+                    var parsed = $.parseJSON(response);
+                    if(parsed.error){
+                        alert(parsed.error.message);
+                        return;
+                    }
+                    postForm("controllplan/index.php",{'customerid': parsed[0].customer_id});
+                }
+            );
 
-    // カード情報変更ボタンアクションの追加
-    var changeCards = $('.change_card_button');
-    $.each(changeCards, function(index,element){
-        element.addEventListener('click',function(){
-            var userid = $(this).closest('tr').children("th").text();
-            postForm("changecard/index.php",{'user_id': userid});
-        });
-    });
-    // キャンセルボタンアクションの追加
-    var cancels = $('.cancel_button');
-    $.each(cancels, function(index,element){
-        element.addEventListener('click',function(){
-            var userid = $(this).closest('tr').children("th").text();
-            postForm("cancel/index.php",{'user_id': userid});
         });
     });
 

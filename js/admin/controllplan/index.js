@@ -18,9 +18,10 @@ $(document).ready(function(){
 function getSubscriptionList(){ 
     var customerId = $('#customerid').val();
     $.post(
-        "server.php?command=get_customer_subscription_list",
+        "/module/payjp_wrapper.php?command=get_customer_subscription_list",
         { 'customerid':customerId },
         function(response){
+            console.log(response);
             if(response == 'null'){
                 $("#planSelect").append('<option>選択可能なプランはありません</option>');
                 return;
@@ -32,14 +33,20 @@ function getSubscriptionList(){
                 return;
             }
 
-            $.each(parsed.subscription.data, function(index, element){
-                $("#planSelect").append( function(){
-                    if($("#planSelect option[value='"+ element.id +"']").length == 0) {
-                        var planStr = element.plan.name + " (ID：" + element.plan.id + ")";
-                        return $("<option>").val(element.id).text(planStr);
-                    }
-                });
-            });
+            if(parsed.subscription.count > 0){
+                $.each(parsed.subscription.data, function(index, element){
+                    $("#planSelect").append( function(){
+                        if($("#planSelect option[value='"+ element.id +"']").length == 0) {
+                            var planStr = element.plan.name + " (ID：" + element.plan.id + ")";
+                            return $("<option>").val(element.id).text(planStr);
+                        }
+                    });
+                });    
+            }else{
+                alert("操作可能なプランがありません。TOPページへ遷移します。");
+                location.href = "/index.php";
+            }
+
         }
     );
 }
@@ -50,7 +57,7 @@ function getSubscriptionList(){
 function pauseService(){
     var subscriptionId = $('[name="plan"] option:selected').val();
     $.post(
-        "server.php?command=pause_subscription",
+        "/module/payjp_wrapper.php?command=pause_subscription",
         { 'subscriptionid': subscriptionId},
         function(response){
             if(response == "success"){
@@ -59,7 +66,7 @@ function pauseService(){
                 alert('エラーが発生しました。再度実行してください。');
             }
         }
-    );    
+    );
 }
 
 /**
@@ -68,7 +75,7 @@ function pauseService(){
 function resumeService(){
     var subscriptionId = $('[name="plan"] option:selected').val();
     $.post(
-        "server.php?command=resume_subscription",
+        "/module/payjp_wrapper.php?command=resume_subscription",
         { 'subscriptionid': subscriptionId},
         function(response){
             if(response == "success"){
@@ -86,7 +93,7 @@ function resumeService(){
 function cancelService(){
     var subscriptionId = $('[name="plan"] option:selected').val();
     $.post(
-        "server.php?command=cancel_subscription",
+        "/module/payjp_wrapper.php?command=cancel_subscription",
         { 'subscriptionid': subscriptionId},
         function(response){
             if(response == "success"){
@@ -104,7 +111,7 @@ function cancelService(){
 function deleteService(){
     var subscriptionId =$('[name="plan"] option:selected').val();
     $.post(
-        "server.php?command=delete_subscription",
+        "/module/payjp_wrapper.php?command=delete_subscription",
         { 'subscriptionid': subscriptionId},
         function(response){
             if(response == "success"){
