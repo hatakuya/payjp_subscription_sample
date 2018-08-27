@@ -106,7 +106,6 @@ class Dao{
 
     function updateUserStatus($userid,$status){
         $result = $this->connection->query("update users set paying_status=". $status ." where user_id = " . $userid);
-        
     }
 
     /**

@@ -178,6 +178,17 @@ class PayJPConnector {
         return $result['id'];
     }
 
+    /**
+     * 顧客カードを追加する（デフォルトカードとして登録を行う）
+     */
+    function updateCustomerCard($customerId, $cardToken){
+        $cu = Payjp\Customer::retrieve($customerId);
+        $cu->cards->create(array(
+                "card" => $cardToken,
+                "default" => true
+        ));
+        return "success";
+    }
     /********************************************************
      * 定期課金系API連携
     ********************************************************/
@@ -345,6 +356,9 @@ try{
         case 'get_plan_list':
             echo json_encode($connection->getPlanList());
             break;
+        case 'get_customer':
+            echo json_encode($connection->getCustomer($_POST['userid']));
+            break;
         case 'get_customer_card':
             echo json_encode($connection->getCustomerCard($_POST['customerid'],$_POST['cardid']));
             break;
@@ -362,6 +376,9 @@ try{
             break;
         case 'create_customer':
             echo json_encode($connection->createCustomer($_POST['userid'], $_POST['mail'], $_POST['tokenid']));
+            break;
+        case 'update_customer_card':
+            echo json_encode($connection->updateCustomerCard($_POST['customerid'], $_POST['tokenid']));
             break;
         case 'create_subscription':
             echo json_encode(createSubscriptionAndUpdateDatabase($_POST['customerid'], $_POST['planid'], $connection));
