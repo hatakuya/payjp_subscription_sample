@@ -61,7 +61,7 @@ function setUserSelectable(){
 function getSelectablePlanList(customerId){
     $.post(
         "../module/payjp_wrapper.php?command=get_selectable_plan_list",
-        { 'user_id':customerId },
+        { 'customerid':customerId },
         function(res){
             if(res != 'null'){
                 var payjpParsed = $.parseJSON(res);
