@@ -345,6 +345,7 @@ function updateCustomerCardDefault($customerId, $tokenId, $connection){
 
     // DBへの登録処理を実行
     $customerInfo = $connection->getCustomer($customerId);
+    $data['customerid'] = $customerId;
     $data['card_id'] = $customerInfo['default_card'];
     $data['user_id'] = $customerInfo['metadata']['user_id'];
     

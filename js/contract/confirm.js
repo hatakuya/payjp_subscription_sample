@@ -12,14 +12,10 @@ $(document).ready(function(){
 
     // ユーザー情報の取得
     getUser();
+    // Payjp顧客情報の取得
+    getCustomer();
     // 選択プランの名称取得
     getPlan();
-
-    // クレジットカード情報の取得（登録済の場合のみ）
-    var tokenId = $('#tokenid').val();
-    if(tokenId == ''){
-        getCard();
-    }
     // ロゴの切り替え
     displayLogo();
 });
@@ -51,6 +47,30 @@ function displayLogo(){
     }
 }
 
+function getCustomer(){
+    var userId = $('#userid').val();
+    $.post(
+        "../module/database_wrapper.php?command=select_payjp_user",
+        { 'user_id':userId },
+        function(response){
+            console.log(response);
+            var parsed = $.parseJSON(response);
+            if (parsed.error) {
+                $('#danger_area').html("ユーザ情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
+                $('#danger_area').show();
+            }else{
+                if(parsed[0].customer_id){
+                    $('#customer_id_disp').html(parsed[0].customer_id);
+                    $('#customerid').val(parsed[0].customer_id);
+                }else{
+                    $('#customer_id_disp').html("未登録");
+                    $('#customerid').val("未登録");
+                }
+            }
+        }
+    );
+}
+
 /**
  * ユーザ情報を取得する
  */
@@ -67,10 +87,6 @@ function getUser(){
             }else{
                 $('#mail_disp').html(parsed[0].mail);
                 $('#mail').val(parsed[0].mail);
-                if($('#customer_id_disp').val() == ''){
-                    $('#customer_id_disp').html("未登録");
-                    $('#customerid').val("未登録");
-                }
             }
         }
     );
@@ -106,6 +122,7 @@ function getCard(){
         "../module/payjp_wrapper.php?command=get_customer_card",
         { 'customerid':customerId, 'cardid': cardId},
         function(response){
+            console.log(customerId,cardId);
             var parsed = $.parseJSON(response);
             if (parsed.error) {
                 $('#danger_area').html("カード情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
