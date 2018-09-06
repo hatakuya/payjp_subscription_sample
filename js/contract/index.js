@@ -52,8 +52,6 @@ function setUserSelectable(){
                 getSelectablePlanList(null);
                 getCardList(null); 
             }
-
-            
         }
     );
 }
@@ -102,19 +100,20 @@ function getCardList(customerId){
             if(response == ''){
                 $('#cards').append('<label><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
             }else{
-                
+                // 選択されたカードはデフォルトカードとなり、顧客IDにひもづく契約は全てこのカードにて決済される。
+
                 // JSONデータをパース
                 var parsed = $.parseJSON(response);
                 // カード情報の一覧を出力
-                $('#cards').append('<label><input name="card" type="radio" value="new" checked>新しいカードで申し込む</label><br>');
                 $.each(parsed.card.data, function(index, element){
                     $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
                     $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
                     $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
                     $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');
                     $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
-                    $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '">');
+                    $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '"><br>');
                 });
+                $('#cards').append('<label><input name="card" type="radio" value="new" checked>デフォルトカードを変更する（新しいカードを追加する）</label><br>');
             }
         }
     );    

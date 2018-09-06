@@ -43,7 +43,7 @@ function getCard(){
  */
 function getCardDetail(customerId){
     if(customerId == null){
-        $('#cards').append('<label><input name="card" type="radio" value="new" checked="true">新しいカードで申し込む</label><br>');
+        alert('カード情報が取得できませんでした。');
         return;
     }
 
@@ -56,7 +56,11 @@ function getCardDetail(customerId){
             var parsed = $.parseJSON(response);
             // カード情報の一覧を出力
             $.each(parsed.card.data, function(index, element){
-                $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
+                if(index == 0){
+                    $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'" checked="true">XXXX - XXXX - XXXX - '+ element.last4 + '(デフォルトカード)</label><br>');
+                }else{
+                    $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'" disabled="true">XXXX - XXXX - XXXX - '+ element.last4 + '(登録済カード)</label><br>');
+                }
                 $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
                 $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
                 $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');

@@ -104,6 +104,29 @@ class Dao{
         return "success";
     }
 
+    function updatePayjpUser($data){
+        // デフォルトカードが変更となるため、顧客の全カード情報を更新
+        $stmt = $this->connection->prepare(
+            "update payjp_users set "
+            ."card_brand=?, card_id=?, card_name=? ,card_last4=? ,card_exp_month=?, card_exp_year=? where customer_id = ?"
+        );
+        $stmt->bind_param( 'sssiiis', // カラムのデータ種別(i=>int,s=>string)
+                    $data['card_brand'], $data['card_id'], $data['card_name'], $data['card_last4'], $data['card_exp_month'], $data['card_exp_year'],$data['customerid']
+                );
+
+        $result = $stmt->execute();
+        
+        if (!$result) {
+            $sql_error = $this->connection->error;
+            error_log($sql_error);
+            die($sql_error);
+            throw new Exception("データベースへの接続が失敗しました。");
+        }
+
+        // 結果をリターン
+        return "success";
+    }
+
     function updateUserStatus($userid,$status){
         $result = $this->connection->query("update users set paying_status=". $status ." where user_id = " . $userid);
     }

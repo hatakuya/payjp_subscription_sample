@@ -23,8 +23,6 @@
                     <th scope="col">メールアドレス</th>
                     <th scope="col">会員区分</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody id="users-table">

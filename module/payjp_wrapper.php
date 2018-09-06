@@ -337,6 +337,31 @@ function createSubscriptionAndUpdateDatabase($customerId, $planId, $connection){
     return "success";
 }
 
+function updateCustomerCardDefault($customerId, $tokenId, $connection){
+    $result = $connection->updateCustomerCard($_POST['customerid'], $_POST['tokenid']);
+    if($result != "success"){
+        return $result;
+    }
+
+    // DBへの登録処理を実行
+    $customerInfo = $connection->getCustomer($customerId);
+    $data['card_id'] = $customerInfo['default_card'];
+    $data['user_id'] = $customerInfo['metadata']['user_id'];
+    
+    // DB登録用カード情報
+    $card = $connection->getCustomerCard($customerId, $data['card_id']);
+    $data['card_brand'] = $card['brand'];
+    $data['card_name'] = $card['name'];
+    $data['card_last4'] = $card['last4'];
+    $data['card_exp_month'] = $card['exp_month'];
+    $data['card_exp_year'] = $card['exp_year'];
+    //$data['card_cvc'] = $card[''];
+
+    $dao = new Dao();
+    $dao->updatePayjpUser($data);
+    return "success";
+}
+
 /********************************************************
  * リクエストルーティング
 ********************************************************/
@@ -378,7 +403,7 @@ try{
             echo json_encode($connection->createCustomer($_POST['userid'], $_POST['mail'], $_POST['tokenid']));
             break;
         case 'update_customer_card':
-            echo json_encode($connection->updateCustomerCard($_POST['customerid'], $_POST['tokenid']));
+            echo json_encode(updateCustomerCardDefault($_POST['customerid'], $_POST['tokenid'], $connection));
             break;
         case 'create_subscription':
             echo json_encode(createSubscriptionAndUpdateDatabase($_POST['customerid'], $_POST['planid'], $connection));

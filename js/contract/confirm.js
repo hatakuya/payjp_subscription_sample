@@ -186,7 +186,7 @@ function createSubscription(customerId, planId){
                 $('#danger_area').show();
             }else{
                 // 正常終了なら完了ページへ
-                console.log(parsed);
+                postForm('./complete.php',{});
             }
         }
     );

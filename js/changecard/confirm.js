@@ -106,12 +106,11 @@ function changeCard(customerId, tokenid){
         { 'customerid': customerId, 'tokenid':tokenid},
         function(response){
             var parsed = $.parseJSON(response);
-            if (parsed.error) {
-                $('#danger_area').html("決済エラーが発生しました。カードが使用できません。入力内容を再確認してください。エラー詳細（" + parsed.error.message + "）");
+            if (parsed != "success") {
+                $('#danger_area').html("エラーが発生しました。カードが使用できません。入力内容を再確認してください。エラー詳細（" + parsed + "）");
                 $('#danger_area').show();
             }else{
                 // 正常終了なら完了ページへ
-                console.log(parsed);
                 postForm("./complete.php",{});
             }
         }
