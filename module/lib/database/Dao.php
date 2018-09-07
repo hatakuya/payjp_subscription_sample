@@ -131,6 +131,24 @@ class Dao{
         $result = $this->connection->query("update users set paying_status=". $status ." where user_id = " . $userid);
     }
 
+    function deleteSubscription($subscriptionId){
+        $fromSubscriptionDataSet = $this->connection->query("select * from payjp_users where subscription_id = '" . $subscriptionId. "'");
+        $userId;
+        while ($row = $fromSubscriptionDataSet->fetch_assoc()) {
+            error_log($row['user_id']);
+            $userId = $row['user_id'];
+        }
+
+        $this->connection->query("delete from payjp_users where subscription_id = '" . $subscriptionId. "'");
+        $fromUserIdDataSet = $this->connection->query("select * from payjp_users where user_id = " . $userId);        
+
+        // 0件の場合、会員区分は無料会員へ戻す。
+        $duplicate_num = $fromUserIdDataSet->num_rows ;
+        if($duplicate_num < 1){
+            $this->connection->query("update users set paying_status=0 where user_id = " . $userId);
+        }
+    }
+
     /**
      * デストラクタ（コネクションクローズ）
      */

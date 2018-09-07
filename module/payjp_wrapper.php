@@ -241,6 +241,8 @@ class PayJPConnector {
     function deleteSubscription($subscriptionId){
         $su = Payjp\Subscription::retrieve($subscriptionId);
         $su->delete();
+        $dao = new Dao();
+        $dao->deleteSubscription($subscriptionId);
         return "success";
     }
 }

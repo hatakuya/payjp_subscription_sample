@@ -53,7 +53,11 @@ function getCustomer(){
         "../module/database_wrapper.php?command=select_payjp_user",
         { 'user_id':userId },
         function(response){
-            console.log(response);
+            if(response == "null"){
+                $('#customer_id_disp').html("未登録");
+                $('#customerid').val("未登録");           
+                return;
+            }
             var parsed = $.parseJSON(response);
             if (parsed.error) {
                 $('#danger_area').html("ユーザ情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
@@ -62,9 +66,6 @@ function getCustomer(){
                 if(parsed[0].customer_id){
                     $('#customer_id_disp').html(parsed[0].customer_id);
                     $('#customerid').val(parsed[0].customer_id);
-                }else{
-                    $('#customer_id_disp').html("未登録");
-                    $('#customerid').val("未登録");
                 }
             }
         }
