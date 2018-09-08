@@ -14,7 +14,7 @@ function getUsers(){
     var id = $('input[name="userid"]').val();
     $.post(
         "/module/database_wrapper.php?command=select_users",
-        { 'user_id': id},
+        { 'userid': id},
         function(response){
             // 表示領域初期化
             $('#users-table').html('');
@@ -63,13 +63,16 @@ function getUsers(){
     );
 }
 
+/**
+ * ユーザごとのボタン押下による遷移処理を設定
+ */
 function addEvent(){
     // 契約ボタンアクションの追加
     var subscriptions = $('.apply_subscription_button');
     $.each(subscriptions, function(index,element){
         element.addEventListener('click',function(){
             var userid = $(this).closest('tr').children("th").text();
-            postForm("contract/index.php",{'user_id': userid});
+            postForm("contract/index.php",{'userid': userid});
         });
     });
 
@@ -78,7 +81,7 @@ function addEvent(){
     $.each(changeCards, function(index,element){
         element.addEventListener('click',function(){
             var userid = $(this).closest('tr').children("th").text();
-            postForm("changecard/index.php",{'user_id': userid});
+            postForm("changecard/index.php",{'userid': userid});
         });
     });
     // キャンセルボタンアクションの追加
@@ -86,7 +89,7 @@ function addEvent(){
     $.each(cancels, function(index,element){
         element.addEventListener('click',function(){
             var userid = $(this).closest('tr').children("th").text();
-            postForm("cancel/index.php",{'user_id': userid});
+            postForm("cancel/index.php",{'userid': userid});
         });
     });
 

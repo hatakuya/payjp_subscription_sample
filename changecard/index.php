@@ -19,7 +19,7 @@
         <button id="apply_subscription_button" type="button" class="btn btn-primary">決済に新しいカードを使う</button>
     </div>
     <div class="container">
-        <input type="hidden" id="userid" value="<?php echo $_POST['user_id']; ?>">
+        <input type="hidden" id="userid" value="<?php echo $_POST['userid']; ?>">
     </div>
 
     <!-- Optional JavaScript -->

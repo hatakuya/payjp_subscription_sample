@@ -311,6 +311,9 @@ function getSelectablePlanList($customerId, $connection){
     return $obj;
 }
 
+/**
+ * 定期課金情報を作成し、DBへひもづく情報を格納する
+ */
 function createSubscriptionAndUpdateDatabase($customerId, $planId, $connection){
 
     $subscription = $connection->createSubscription($customerId, $planId);
@@ -339,6 +342,9 @@ function createSubscriptionAndUpdateDatabase($customerId, $planId, $connection){
     return "success";
 }
 
+/**
+ * 顧客カード情報を追加する（デフォルトカードとして登録を行う）
+ */
 function updateCustomerCardDefault($customerId, $tokenId, $connection){
     $result = $connection->updateCustomerCard($_POST['customerid'], $_POST['tokenid']);
     if($result != "success"){

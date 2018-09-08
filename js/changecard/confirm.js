@@ -14,11 +14,14 @@ $(document).ready(function(){
     displayLogo();
 });
 
+/**
+ * ユーザIDよりPayjp顧客情報を取得する
+ */
 function getCustomer(){
     var userid = $('#userid').val();
     $.post(
         "../module/database_wrapper.php?command=select_payjp_user",
-        { 'user_id': userid},
+        { 'userid': userid},
         function(response){
             var parsed = $.parseJSON(response);
             if (parsed.error) {
@@ -124,13 +127,6 @@ function movePreviousPage(){
     var userId = $('#userid').val(); 
     var mail = $('#mail').val();
     var customerId = $('#customerid').val();
-    var planId = $('#planid').val();
-    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
-
-    // 登録済みであるか、否かで遷移先を切り替える
-    if(customerId == '未登録'){    
-        postForm( './input.php', data );
-    }else{
-        postForm( './paymentselect.php', data );
-    }
+    var data = {'userid': userId, 'mail':mail, 'customerid':customerId};
+    postForm( './input.php', data );
 }

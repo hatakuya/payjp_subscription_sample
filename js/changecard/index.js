@@ -18,7 +18,7 @@ function getCard(){
     var userId = $('#userid').val();
     $.post(
         "../module/database_wrapper.php?command=select_payjp_user",
-        { 'user_id':userId },
+        { 'userid':userId },
         function(response){
             if(response != 'null'){
                 var parsed = $.parseJSON(response);

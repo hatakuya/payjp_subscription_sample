@@ -10,6 +10,7 @@ $(document).ready(function(){
         
     //　各ボタンクリックのイベントを定義
     document.querySelector('#apply_subscription_button').addEventListener('click',moveInputPage);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
 });
 
 /**
@@ -38,7 +39,7 @@ function setUserSelectable(){
     var userId = $('#userid').val();
     $.post(
         "../module/database_wrapper.php?command=select_payjp_user",
-        { 'user_id':userId },
+        { 'userid':userId },
         function(response){
             if(response != 'null'){
                 var parsed = $.parseJSON(response);
@@ -56,6 +57,9 @@ function setUserSelectable(){
     );
 }
 
+/**
+ * 選択可能なプランの一覧を取得する
+ */
 function getSelectablePlanList(customerId){
     $.post(
         "../module/payjp_wrapper.php?command=get_selectable_plan_list",
@@ -94,7 +98,6 @@ function getCardList(customerId){
         "../module/payjp_wrapper.php?command=get_customer_card_list",
         { 'customerid': customerId},
         function(response){
-            console.log(response);
             $('#cards').html('');
             // 契約情報がなければその旨を通知
             if(response == ''){
@@ -106,14 +109,16 @@ function getCardList(customerId){
                 var parsed = $.parseJSON(response);
                 // カード情報の一覧を出力
                 $.each(parsed.card.data, function(index, element){
-                    $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'">XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
-                    $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
-                    $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
-                    $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');
-                    $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
-                    $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '"><br>');
+                    if(index == 0){
+                        $('#cards').append('<label><input name="card" type="radio" value="'+ element.id +'" checked>XXXX - XXXX - XXXX - '+ element.last4 + '</label>');
+                        $('#cards').append('<input type="hidden" id="name_' +element.id+ '" value="' + element.name + '">');
+                        $('#cards').append('<input type="hidden" id="last4_' +element.id+ '" value="' + element.last4 + '">');
+                        $('#cards').append('<input type="hidden" id="brand_' +element.id+ '" value="' + element.brand + '">');
+                        $('#cards').append('<input type="hidden" id="exp_month_' +element.id+ '" value="' + element.exp_month + '">');
+                        $('#cards').append('<input type="hidden" id="exp_year_' +element.id+ '" value="' + element.exp_year + '"><br>');    
+                    }
                 });
-                $('#cards').append('<label><input name="card" type="radio" value="new" checked>デフォルトカードを変更する（新しいカードを追加する）</label><br>');
+                $('#cards').append('<label><input name="card" type="radio" value="change">デフォルトカードを変更する（新しいカードを追加する）</label><br>');
             }
         }
     );    
@@ -132,6 +137,9 @@ function moveInputPage(){
     if($('input[name="card"]:checked').val() == "new"){
         var data = {'userid':userId, 'planid':planId,'customerid':customerId};
         postForm( './input.php', data );
+    }else if($('input[name="card"]:checked').val() == "change"){
+        var data = {'userid':userId};
+        postForm( '../changecard/index.php', data );    
     }else{
         // 登録済みカードが選択されている場合は紐づく情報を元に確認画面へ遷移
         var cardId = $('input[name="card"]:checked').val();
@@ -154,4 +162,11 @@ function moveInputPage(){
         };
         postForm( './confirm.php', data );
     }
+}
+
+/*
+* 前の画面へ遷移する
+*/
+function movePreviousPage(){
+   postForm( '/index.php', {} );
 }

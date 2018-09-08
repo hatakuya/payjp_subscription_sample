@@ -127,5 +127,5 @@ function deleteService(){
  * 前の画面へ遷移する
  */
 function movePreviousPage(){
-    postForm( './index.php', {} );
+    postForm( '../index.php', {} );
 }

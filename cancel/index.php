@@ -15,10 +15,11 @@
         </div>
     </div>
     <div class="container" style="margin-top:20px;">
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button> 
         <button id="apply_subscription_button" type="button" class="btn btn-primary">解約</button>
     </div>
     <div class="container">
-        <input type="hidden" id="userid" value="<?php echo $_POST['user_id']; ?>">
+        <input type="hidden" id="userid" value="<?php echo $_POST['userid']; ?>">
         <input type="hidden" id="customerid" value="">
     </div>
 

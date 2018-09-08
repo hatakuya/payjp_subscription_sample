@@ -54,9 +54,5 @@ function movePreviousPage(){
     var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
 
     // 登録済みであるか、否かで遷移先を切り替える
-    if(customerId == '未登録'){    
-        postForm( './input.php', data );
-    }else{
-        postForm( './paymentselect.php', data );
-    }
+    postForm( './index.php', data );
 }

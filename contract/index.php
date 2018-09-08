@@ -24,6 +24,7 @@
         </div>
     </div>
     <div class="container" style="margin-top:20px;">
+        <button id="move_previous_button" type="button" class="btn btn-secondary">戻る</button>        
         <button id="apply_subscription_button" type="button" class="btn btn-primary">お申し込み</button>
     </div>
     <hr>
@@ -41,7 +42,7 @@
         </span>
     </div>
     <div class="container">
-        <input type="hidden" id="userid" value="<?php echo $_POST['user_id']; ?>">
+        <input type="hidden" id="userid" value="<?php echo $_POST['userid']; ?>">
     </div>
 
     <!-- Optional JavaScript -->

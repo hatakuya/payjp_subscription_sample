@@ -24,9 +24,8 @@ function movePreviousPage(){
     var userId = $('#userid').val(); 
     var mail = $('#mail').val();
     var customerId = $('#customerid').val();
-    var planId = $('#planid').val();
-    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
-    postForm( './paymentselect.php', data );
+    var data = {'userid': userId, 'mail':mail, 'customerid':customerId};
+    postForm( './index.php', data );
 }
 
 /**

@@ -47,12 +47,16 @@ function displayLogo(){
     }
 }
 
+/**
+ * 顧客情報を取得する
+ */
 function getCustomer(){
     var userId = $('#userid').val();
     $.post(
         "../module/database_wrapper.php?command=select_payjp_user",
-        { 'user_id':userId },
+        { 'userid':userId },
         function(response){
+            console.log(response);
             if(response == "null"){
                 $('#customer_id_disp').html("未登録");
                 $('#customerid').val("未登録");           
@@ -79,7 +83,7 @@ function getUser(){
     var userId = $('#userid').val();
     $.post(
         "../module/database_wrapper.php?command=select_users",
-        { 'user_id':userId },
+        { 'userid':userId },
         function(response){
             var parsed = $.parseJSON(response);
             if (parsed.error) {
@@ -154,7 +158,7 @@ function movePreviousPage(){
     if(customerId == '未登録'){    
         postForm( './input.php', data );
     }else{
-        postForm( './paymentselect.php', data );
+        postForm( './index.php', data );
     }
 }
 

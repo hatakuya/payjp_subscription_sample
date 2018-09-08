@@ -15,10 +15,10 @@ try{
     $command = $_GET['command'];
     switch($command){
         case 'select_users':
-            echo json_encode($dao->selectUsers($_POST['user_id']));
+            echo json_encode($dao->selectUsers($_POST['userid']));
             break;
         case 'select_payjp_user':
-            echo json_encode($dao->selectPayjpUser($_POST['user_id']));
+            echo json_encode($dao->selectPayjpUser($_POST['userid']));
             break;
         default:
             echo "command not found.";

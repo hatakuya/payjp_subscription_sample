@@ -3,18 +3,24 @@
  */
 $(document).ready(function(){
     document.querySelector('#search_customer_button').addEventListener('click',getUsers);
-    document.querySelector('#move_admin_page_button').addEventListener('click',moveAdminPage);
+    document.querySelector('#move_admin_page_button').addEventListener('click',moveUserPage);
 });
 
-function moveAdminPage(){
-    postForm( './admin/index.php', {} );
+/**
+ * ユーザ一覧へ遷移する
+ */
+function moveUserPage(){
+    postForm( '/index.php', {} );
 }
 
+/**
+ * ユーザ情報をDBより取得する
+ */
 function getUsers(){
     var id = $('input[name="userid"]').val();
     $.post(
         "/module/database_wrapper.php?command=select_users",
-        { 'user_id': id},
+        { 'userid': id},
         function(response){
             // 表示領域初期化
             $('#users-table').html('');
@@ -55,6 +61,9 @@ function getUsers(){
     );
 }
 
+/**
+ * 契約内容の更新アクションを追加
+ */
 function addEvent(){
     // 契約ボタンアクションの追加
     var subscriptions = $('.apply_subscription_button');
@@ -64,7 +73,7 @@ function addEvent(){
             
             $.post(
                 "/module/database_wrapper.php?command=select_payjp_user",
-                { 'user_id': userid},
+                { 'userid': userid},
                 function(response){
                     // JSONデータをパース
                     console.log(response);

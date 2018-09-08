@@ -8,6 +8,7 @@ $(document).ready(function(){
         
     //　各ボタンクリックのイベントを定義
     document.querySelector('#apply_subscription_button').addEventListener('click',moveConfirmPage);
+    document.querySelector('#move_previous_button').addEventListener('click',movePreviousPage);
 });
 
 /**
@@ -18,7 +19,7 @@ function setUserSelectable(){
     var userId = $('#userid').val();
     $.post(
         "../module/database_wrapper.php?command=select_payjp_user",
-        { 'user_id':userId },
+        { 'userid':userId },
         function(response){
             if(response != 'null'){
                 var parsed = $.parseJSON(response);
@@ -33,6 +34,10 @@ function setUserSelectable(){
     );
 }
 
+/**
+ * 顧客が契約している定期課金情報を取得する
+ * @param {*} customerId 
+ */
 function getSelectablePlanList(customerId){
     $.post(
         "../module/payjp_wrapper.php?command=get_customer_subscription_list",
@@ -69,3 +74,10 @@ function moveConfirmPage(){
     var data = {'userid':userId, 'subscriptionid':subscriptionId,'planname':planName ,'customerid':customerId};
     postForm('./confirm.php', data);
 }
+
+/*
+* 前の画面へ遷移する
+*/
+function movePreviousPage(){
+    postForm( '../index.php', {} );
+ }
