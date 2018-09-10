@@ -26,9 +26,9 @@ class Dao{
         $result;
         // IDの指定がなければ全件検索
         if($id == ""){
-            $result = $this->connection->query("select user_id,mail,paying_status from users");
+            $result = $this->connection->query("select user_id,mailadress,paying_status from users");
         }else{
-            $result = $this->connection->query("select user_id,mail,paying_status from users where user_id like " . $id);
+            $result = $this->connection->query("select user_id,mailadress,paying_status from users where user_id like " . $id);
         }
 
         if (!$result) {
@@ -104,6 +104,9 @@ class Dao{
         return "success";
     }
 
+    /**
+     * PayjpUser情報（クレジットカード情報）を更新する
+     */
     function updatePayjpUser($data){
         // デフォルトカードが変更となるため、顧客の全カード情報を更新
         $stmt = $this->connection->prepare(
@@ -127,10 +130,16 @@ class Dao{
         return "success";
     }
 
+    /**
+     * ユーザのステータスを更新する
+     */
     function updateUserStatus($userid,$status){
         $result = $this->connection->query("update users set paying_status=". $status ." where user_id = " . $userid);
     }
 
+    /**
+     * 課金レコードを削除する
+     */
     function deleteSubscription($subscriptionId){
         $fromSubscriptionDataSet = $this->connection->query("select * from payjp_users where subscription_id = '" . $subscriptionId. "'");
         $userId;

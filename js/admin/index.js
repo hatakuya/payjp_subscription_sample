@@ -49,7 +49,7 @@ function getUsers(){
                     $("#users-table").append(
                         $("<tr></tr>")
                             .append($('<th scope="row"></th>').text(element.user_id))
-                            .append($('<td></td>').text(element.mail))
+                            .append($('<td></td>').text(element.mailadress))
                             .append($('<td></td>').text(statusText))
                             .append($('<td></td>')
                                 .append(applyButton))

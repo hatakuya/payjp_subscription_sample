@@ -16,6 +16,7 @@ function getUsers(){
         "/module/database_wrapper.php?command=select_users",
         { 'userid': id},
         function(response){
+            console.log(response);
             // 表示領域初期化
             $('#users-table').html('');
 
@@ -47,7 +48,7 @@ function getUsers(){
                     $("#users-table").append(
                         $("<tr></tr>")
                             .append($('<th scope="row"></th>').text(element.user_id))
-                            .append($('<td></td>').text(element.mail))
+                            .append($('<td></td>').text(element.mailadress))
                             .append($('<td></td>').text(statusText))
                             .append($('<td></td>')
                                 .append(applyButton))

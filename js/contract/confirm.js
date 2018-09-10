@@ -48,7 +48,7 @@ function displayLogo(){
 }
 
 /**
- * 顧客情報を取得する
+ * ユーザIDよりPayjp顧客情報を取得する
  */
 function getCustomer(){
     var userId = $('#userid').val();
@@ -90,8 +90,8 @@ function getUser(){
                 $('#danger_area').html("ユーザ情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
                 $('#danger_area').show();
             }else{
-                $('#mail_disp').html(parsed[0].mail);
-                $('#mail').val(parsed[0].mail);
+                $('#mail_disp').html(parsed[0].mailadress);
+                $('#mail').val(parsed[0].mailadress);
             }
         }
     );
