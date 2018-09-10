@@ -48,10 +48,10 @@ function deleteSubscription(subscriptionId){
  */
 function movePreviousPage(){
     var userId = $('#userid').val(); 
-    var mail = $('#mail').val();
+    var mailaddress = $('#mailaddress').val();
     var customerId = $('#customerid').val();
     var planId = $('#planid').val();
-    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
+    var data = {'userid': userId, 'mailaddress':mailaddress, 'customerid':customerId, 'planid':planId};
 
     // 登録済みであるか、否かで遷移先を切り替える
     postForm( './index.php', data );

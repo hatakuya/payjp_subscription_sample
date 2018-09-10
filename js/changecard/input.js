@@ -22,9 +22,9 @@ $(document).ready(function(){
  */
 function movePreviousPage(){
     var userId = $('#userid').val(); 
-    var mail = $('#mail').val();
+    var mailaddress = $('#mailaddress').val();
     var customerId = $('#customerid').val();
-    var data = {'userid': userId, 'mail':mail, 'customerid':customerId};
+    var data = {'userid': userId, 'mailaddress':mailaddress, 'customerid':customerId};
     postForm( './index.php', data );
 }
 
@@ -34,7 +34,7 @@ function movePreviousPage(){
 function moveConfirmPage(){
     // 画面上に保持している各種情報を収集
     var userId = $('#userid').val(),
-        mail = $('#mail').val(),
+        mailaddress = $('#mailaddress').val(),
         customerId = $('#customerid').val(),
         planId = $('#planid').val();
     var number = document.querySelector('input[name="number"]'),
@@ -60,7 +60,7 @@ function moveConfirmPage(){
         }
         else {
             var data = {
-                'mail':mail,
+                'mailaddress':mailaddress,
                 'userid':userId,
                 'customerid':customerId,
                 'planid':planId,

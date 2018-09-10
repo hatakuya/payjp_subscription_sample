@@ -51,7 +51,7 @@
     <div class="container">
         <!-- 顧客基本情報 -->
         <input id="userid" type="hidden" value="<?php echo $_POST['userid']; ?>">
-        <input id="mail" type="hidden" value="<?php echo $_POST['mail']; ?>">
+        <input id="mailaddress" type="hidden" value="<?php echo $_POST['mailaddress']; ?>">
         <input id="customerid" type="hidden" value="<?php echo $_POST['customerid']; ?>">
         <input id="planid" type="hidden" value="<?php echo $_POST['planid']; ?>">
 

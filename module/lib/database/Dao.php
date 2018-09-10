@@ -26,9 +26,9 @@ class Dao{
         $result;
         // IDの指定がなければ全件検索
         if($id == ""){
-            $result = $this->connection->query("select user_id,mailadress,paying_status from users");
+            $result = $this->connection->query("select user_id,mailaddress,paying_status from users");
         }else{
-            $result = $this->connection->query("select user_id,mailadress,paying_status from users where user_id like " . $id);
+            $result = $this->connection->query("select user_id,mailaddress,paying_status from users where user_id like " . $id);
         }
 
         if (!$result) {

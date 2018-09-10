@@ -32,7 +32,7 @@ function movePreviousPage(){
 function moveConfirmPage(){
     // 画面上に保持している各種情報を収集
     var userId = $('#userid').val(),
-        mail = $('#mail').val(),
+        mailaddress = $('#mailaddress').val(),
         customerId = $('#customerid').val(),
         planId = $('#planid').val();
     var number = document.querySelector('input[name="number"]'),
@@ -58,7 +58,7 @@ function moveConfirmPage(){
         }
         else {
             var data = {
-                'mail':mail,
+                'mailaddress':mailaddress,
                 'userid':userId,
                 'customerid':customerId,
                 'planid':planId,

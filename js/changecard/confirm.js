@@ -125,8 +125,8 @@ function changeCard(customerId, tokenid){
  */
 function movePreviousPage(){
     var userId = $('#userid').val(); 
-    var mail = $('#mail').val();
+    var mailaddress = $('#mailaddress').val();
     var customerId = $('#customerid').val();
-    var data = {'userid': userId, 'mail':mail, 'customerid':customerId};
+    var data = {'userid': userId, 'mailaddress':mailaddress, 'customerid':customerId};
     postForm( './input.php', data );
 }

@@ -90,8 +90,8 @@ function getUser(){
                 $('#danger_area').html("ユーザ情報取得時にエラーが発生しました。詳細（" + parsed.error.message + "）");
                 $('#danger_area').show();
             }else{
-                $('#mail_disp').html(parsed[0].mailadress);
-                $('#mail').val(parsed[0].mailadress);
+                $('#mail_disp').html(parsed[0].mailaddress);
+                $('#mailaddress').val(parsed[0].mailaddress);
             }
         }
     );
@@ -149,10 +149,10 @@ function getCard(){
  */
 function movePreviousPage(){
     var userId = $('#userid').val(); 
-    var mail = $('#mail').val();
+    var mailaddress = $('#mailaddress').val();
     var customerId = $('#customerid').val();
     var planId = $('#planid').val();
-    var data = {'userid': userId, 'mail':mail, 'customerid':customerId, 'planid':planId};
+    var data = {'userid': userId, 'mailaddress':mailaddress, 'customerid':customerId, 'planid':planId};
 
     // 登録済みであるか、否かで遷移先を切り替える
     if(customerId == '未登録'){    
@@ -171,12 +171,12 @@ function moveThanksPage(){
     var planId = $('#planid').val();
     var userId = $('#userid').val();
     var customerId = $('#customerid').val();
-    var mail = $('#mail').val();
+    var mailaddress = $('#mailaddress').val();
     // トークンが入っていれば新規顧客登録
     if(customerId == '未登録'){
         $.post(
             "../module/payjp_wrapper.php?command=create_customer",
-            { 'userid':userId, 'mail': mail, 'tokenid':tokenId},
+            { 'userid':userId, 'mailaddress': mailaddress, 'tokenid':tokenId},
             function(response){
                 var parsed = $.parseJSON(response);
                 if (parsed.error) {

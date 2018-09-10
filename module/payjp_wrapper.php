@@ -164,12 +164,12 @@ class PayJPConnector {
      * 顧客情報生成
      * @return 顧客情報生成結果
      */
-    function createCustomer($userId, $mail, $cardToken){
+    function createCustomer($userId, $mailaddress, $cardToken){
         
         // 顧客情報の追加
         $result = Payjp\Customer::create(array(
             "metadata[user_id]" => $userId,
-            "email" => $mail,
+            "email" => $mailaddress,
             "card" => $cardToken
         ));
         if (isset($result['error'])) {
@@ -253,8 +253,8 @@ class PayJPConnector {
 /**
  * メールアドレスに紐づくユーザ情報、カード情報、定期課金情報を取得する
  */
-function getCustomerDetail($mail, $connection){
-    $customer = $connection->getCustomerByMail($mail);
+function getCustomerDetail($mailaddress, $connection){
+    $customer = $connection->getCustomerByMail($mailaddress);
     if($customer == ""){
         return null;
     }
@@ -400,7 +400,7 @@ try{
             echo json_encode($connection->getCustomerCardList($_POST['customerid']));
             break;
         case 'get_customer_detail':
-            echo json_encode(getCustomerDetail($_POST['mail'], $connection));
+            echo json_encode(getCustomerDetail($_POST['mailaddress'], $connection));
             break;
         case 'get_customer_subscription_list':
             echo json_encode($connection->getCustomerSubscriptionList($_POST['customerid']));
@@ -409,7 +409,7 @@ try{
             echo json_encode(getSelectablePlanList($_POST['customerid'], $connection));
             break;
         case 'create_customer':
-            echo json_encode($connection->createCustomer($_POST['userid'], $_POST['mail'], $_POST['tokenid']));
+            echo json_encode($connection->createCustomer($_POST['userid'], $_POST['mailaddress'], $_POST['tokenid']));
             break;
         case 'update_customer_card':
             echo json_encode(updateCustomerCardDefault($_POST['customerid'], $_POST['tokenid'], $connection));
